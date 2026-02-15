@@ -54,9 +54,9 @@ Follow the original AIDLC workflow planning analysis:
 3. **Component Relationship Mapping** (brownfield only)
 4. **Risk Assessment**
 
-## Step 4: Phase Determination
+## Step 4: Phase Determination (Recommendations Only)
 
-For each conditional stage, determine EXECUTE or SKIP:
+For each conditional stage, analyze whether it should EXECUTE or SKIP. **Do NOT finalize skip decisions -- these are recommendations that require user approval.**
 
 | Stage | Decision Criteria |
 |---|---|
@@ -68,9 +68,31 @@ For each conditional stage, determine EXECUTE or SKIP:
 | NFR Design (per-unit) | NFR patterns needed? |
 | Infrastructure Design (per-unit) | Cloud infrastructure mapping? |
 
+**CRITICAL**: The analysis above produces *recommendations*, not final decisions. Any recommendation to SKIP a stage MUST be presented to the user for explicit approval before proceeding to Step 5. See AGENTS.md Core Rule 0.
+
+## Step 4b: Request User Approval for Skip Recommendations
+
+For each stage where the recommendation is SKIP:
+
+1. Present the recommendation with a clear rationale to the user.
+2. Ask the user for explicit permission to skip each stage.
+3. **Wait for the user's response before proceeding.**
+
+Use a Beads Q&A issue or direct chat:
+
+```bash
+bd create "QUESTION: Workflow Planning - Approve Stage Skips" -t message -p 0 \
+  --thread <workflow-planning-id> \
+  --description "Based on analysis, I recommend skipping the following stages:\n\n[For each recommended skip:]\n- [Stage Name]: [Rationale]\n\nPlease confirm which stages should be skipped.\n\nA) Approve all recommended skips\nB) Execute all stages (skip none)\nC) Custom selection (please specify which to skip and which to execute)\nX) Other (please describe)" \
+  --labels "type:qa,phase:inception" \
+  --assignee human
+```
+
+**Do not proceed to Step 5 until the user has responded.**
+
 ## Step 5: Wire Conditional Stage Dependencies in Beads
 
-This is the critical Beads-specific step. Based on the phase determination, wire the dependency chain.
+This is the critical Beads-specific step. Based on the phase determination **and user-approved skip decisions**, wire the dependency chain.
 
 ### For Stages Marked EXECUTE
 
@@ -86,17 +108,19 @@ bd dep add <user-stories-id> <requirements-review-gate-id> --type blocks
 bd dep add <workflow-planning-id> <user-stories-review-gate-id> --type blocks
 ```
 
-### For Stages Marked SKIP
+### For Stages Marked SKIP (User Approved Only)
 
-Close them immediately with rationale:
+Close them only after the user has explicitly approved the skip:
 
 ```bash
-# Example: User Stories is SKIP
+# Example: User Stories is SKIP (user approved)
 bd update <user-stories-id> --status done \
-  --notes "SKIPPED: Internal refactoring project with no user-facing changes. No personas or acceptance criteria needed."
+  --notes "SKIPPED: Internal refactoring project with no user-facing changes. No personas or acceptance criteria needed. -- User approved skip."
 bd update <user-stories-review-gate-id> --status done \
-  --notes "SKIPPED: User Stories stage was skipped."
+  --notes "SKIPPED: User Stories stage was skipped. -- User approved."
 ```
+
+**If the user did not approve skipping a stage, it MUST be wired as EXECUTE regardless of the agent's recommendation.**
 
 ### Wire Construction Stage Dependencies
 

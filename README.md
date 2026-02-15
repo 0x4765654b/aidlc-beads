@@ -32,40 +32,189 @@ brew install beads
 go install github.com/steveyegge/beads/cmd/bd@latest
 ```
 
-## Quick Start
+## Creating a New Project from This Template
 
-### 1. Initialize a New AIDLC Project
+This repository is a **template** for running the AIDLC workflow with Beads on any project. To use it, copy the template files into your target project's working folder, initialize, and go.
 
-**Using the setup script:**
+### Step 1: Create Your Project Folder
+
+Create a new directory for your project (or use an existing one):
+
+```bash
+mkdir my-project
+cd my-project
+git init
+```
+
+### Step 2: Copy Template Files
+
+Copy the following files and directories from this repository into your new project folder. The easiest way is to clone this repo and then copy what you need.
+
+**Windows (PowerShell):**
 
 ```powershell
-# Windows (PowerShell)
+# Clone the template repo (if you haven't already)
+git clone https://github.com/harmjeff/aidlc-beads.git C:\temp\aidlc-beads-template
+
+# Copy template files into your project
+$template = "C:\temp\aidlc-beads-template"
+$project  = "C:\path\to\my-project"
+
+# Core files (required)
+Copy-Item "$template\AGENTS.md"     "$project\AGENTS.md"
+Copy-Item "$template\LICENSE"       "$project\LICENSE"
+Copy-Item "$template\.gitignore"    "$project\.gitignore"
+Copy-Item "$template\.gitmodules"   "$project\.gitmodules"
+
+# Directories (required)
+Copy-Item "$template\aidlc-beads-rules" "$project\aidlc-beads-rules" -Recurse
+Copy-Item "$template\scripts"           "$project\scripts"           -Recurse
+Copy-Item "$template\templates"         "$project\templates"         -Recurse
+
+# Directories (recommended -- design docs and reference rules)
+Copy-Item "$template\docs"              "$project\docs"              -Recurse
+
+# Initialize the aidlc-workflows submodule (original AIDLC rules reference)
+cd $project
+git submodule add https://github.com/awslabs/aidlc-workflows.git aidlc-workflows
+git submodule update --init --recursive
+```
+
+**macOS/Linux (bash):**
+
+```bash
+# Clone the template repo (if you haven't already)
+git clone https://github.com/harmjeff/aidlc-beads.git /tmp/aidlc-beads-template
+
+# Copy template files into your project
+TEMPLATE="/tmp/aidlc-beads-template"
+PROJECT="/path/to/my-project"
+
+# Core files (required)
+cp "$TEMPLATE/AGENTS.md"     "$PROJECT/AGENTS.md"
+cp "$TEMPLATE/LICENSE"       "$PROJECT/LICENSE"
+cp "$TEMPLATE/.gitignore"    "$PROJECT/.gitignore"
+cp "$TEMPLATE/.gitmodules"   "$PROJECT/.gitmodules"
+
+# Directories (required)
+cp -r "$TEMPLATE/aidlc-beads-rules" "$PROJECT/aidlc-beads-rules"
+cp -r "$TEMPLATE/scripts"           "$PROJECT/scripts"
+cp -r "$TEMPLATE/templates"         "$PROJECT/templates"
+
+# Directories (recommended -- design docs and reference rules)
+cp -r "$TEMPLATE/docs"              "$PROJECT/docs"
+
+# Initialize the aidlc-workflows submodule (original AIDLC rules reference)
+cd "$PROJECT"
+git submodule add https://github.com/awslabs/aidlc-workflows.git aidlc-workflows
+git submodule update --init --recursive
+```
+
+#### What Each Piece Does
+
+| File / Directory | Required | Purpose |
+|---|---|---|
+| `AGENTS.md` | **Yes** | Top-level agent instructions, core rules, `bd` CLI reference |
+| `aidlc-beads-rules/` | **Yes** | Beads-adapted AIDLC stage rules (agent reads these during each stage) |
+| `scripts/` | **Yes** | Initialization scripts that create Beads issues and wire dependencies |
+| `templates/` | **Yes** | Artifact header template for markdown documents |
+| `.gitignore` | **Yes** | Excludes `.beads/*.db` and other generated files from git |
+| `.gitmodules` | **Yes** | References the `aidlc-workflows` submodule |
+| `LICENSE` | Recommended | MIT license |
+| `docs/` | Recommended | Architecture specs, schema mapping, human interaction guide |
+| `aidlc-workflows/` | Recommended | Original AIDLC rules (git submodule, referenced by beads-rules) |
+
+> **Do NOT copy** `.beads/`, `aidlc-docs/`, or `.claude/`. These are project-specific and will be generated fresh during initialization.
+
+### Step 3: Initialize Beads and Create the AIDLC Issue Graph
+
+Run the initialization script from your new project folder:
+
+**Windows (PowerShell):**
+
+```powershell
+# For a new project with no existing code:
 .\scripts\init-aidlc-project.ps1 -ProjectType greenfield
+
+# For a project with existing code to analyze:
+.\scripts\init-aidlc-project.ps1 -ProjectType brownfield
 ```
 
+**macOS/Linux:**
+
 ```bash
-# macOS/Linux
+# For a new project with no existing code:
+chmod +x ./scripts/init-aidlc-project.sh
 ./scripts/init-aidlc-project.sh greenfield
+
+# For a project with existing code to analyze:
+./scripts/init-aidlc-project.sh brownfield
 ```
 
-**Or manually:**
+This script will:
+1. Initialize Beads with the `ab-` issue prefix
+2. Create the `aidlc-docs/` directory structure for artifacts
+3. Create 3 phase epics (Inception, Construction, Operations)
+4. Create all Inception stage issues with review gates
+5. Wire the dependency chain so stages execute in order
+6. Sync the Beads database
+
+After initialization, commit the initial state:
 
 ```bash
-bd init --prefix ab
-# Then follow aidlc-beads-rules/inception/workspace-detection-beads.md
+git add .
+git commit -m "Initialize AIDLC-Beads project"
 ```
 
-### 2. Check What's Ready
+### Step 4: Start Working with Your Agent
+
+Open your project in your AI coding agent (Cursor, Claude Code, etc.) and tell the agent what you want to build. The agent will read `AGENTS.md` and follow the AIDLC workflow automatically.
+
+To verify everything is set up correctly:
+
+```bash
+# See what's ready for work
+bd ready --json
+
+# See the full issue graph
+bd list --pretty
+```
+
+The first ready task will be **Workspace Detection**, followed by **Requirements Analysis**.
+
+### Step 5: Review and Approve at Each Gate
+
+As the agent completes each stage, it will pause at **review gates** and ask you to review the generated artifacts (markdown documents in `aidlc-docs/`). To approve and let the agent continue:
+
+```bash
+bd update <review-gate-id> --status done --notes "Approved."
+```
+
+To request changes instead:
+
+```bash
+bd update <review-gate-id> --notes "Changes needed: [describe what to change]"
+```
+
+See [docs/design/human-interaction-guide.md](docs/design/human-interaction-guide.md) for all human interaction patterns.
+
+---
+
+## Quick Start (Existing Setup)
+
+If your project already has AIDLC-Beads initialized (`.beads/` directory exists):
+
+### 1. Check What's Ready
 
 ```bash
 bd ready --json
 ```
 
-### 3. Let Your Agent Work
+### 2. Let Your Agent Work
 
 Point your agent at `AGENTS.md` and the rules in `aidlc-beads-rules/`. The agent will follow the AIDLC workflow, creating artifacts in `aidlc-docs/` and tracking progress in Beads.
 
-### 4. Review and Approve
+### 3. Review and Approve
 
 When the agent creates a review gate, review the referenced markdown artifact and approve:
 

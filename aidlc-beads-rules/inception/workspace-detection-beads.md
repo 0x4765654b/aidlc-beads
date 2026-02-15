@@ -14,6 +14,9 @@ bd list --json
 
 # If not initialized:
 bd init --prefix ab
+
+# Configure beads.role to suppress warnings on subsequent commands
+git config beads.role maintainer
 ```
 
 ## Step 2: Check for Existing AIDLC Beads Project
@@ -52,7 +55,7 @@ bd create "INCEPTION PHASE" -t epic -p 1 \
   --description "Planning and architecture. Determines WHAT to build and WHY." \
   --labels "phase:inception,project:[greenfield|brownfield]" \
   --notes "workspace-root: [absolute path]" \
-  --acceptance "All inception stages completed or intentionally skipped. Human approval at each gate."
+  --acceptance "All inception stages completed or skipped with explicit user approval. Human approval at each gate."
 
 bd create "CONSTRUCTION PHASE" -t epic -p 1 \
   --description "Design, implementation, build and test. Determines HOW to build it." \
@@ -104,7 +107,7 @@ bd dep add <req-review-id> <requirements-id> --type blocks
 bd create "Workflow Planning" -t task -p 1 \
   --description "Determine which stages to execute. Create execution plan." \
   --labels "phase:inception,stage:workflow-planning,always" \
-  --acceptance "Execution plan generated. Stages marked execute/skip."
+  --acceptance "Execution plan generated. Stages marked execute/skip with explicit user approval for all skips."
 bd dep add <workflow-planning-id> <inception-epic-id> --type parent
 bd dep add <workflow-planning-id> <req-review-id> --type blocks
 

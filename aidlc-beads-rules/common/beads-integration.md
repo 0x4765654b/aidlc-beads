@@ -16,6 +16,7 @@ bd ready --json
 
 # 2. If bd ready fails (no database), initialize:
 bd init --prefix ab
+git config beads.role maintainer
 
 # 3. Check for in-progress work from a previous session
 bd list --status in_progress --json
@@ -146,13 +147,27 @@ Before marking a stage as done, verify:
 
 ## Conditional Stage Handling
 
-### Skipping a Stage
+### CRITICAL: No Stage May Be Skipped Without Explicit User Permission
 
-When analysis determines a conditional stage is not needed:
+Agents MUST NOT skip any workflow stage autonomously. This applies to all conditional stages in both Inception and Construction phases.
+
+### Recommending a Skip
+
+When the agent's analysis suggests a conditional stage is not needed:
+
+1. **Present a recommendation** to the user with a clear rationale for why the stage could be skipped.
+2. **Ask the user for explicit permission** to skip (via Beads Q&A issue or direct chat).
+3. **Wait for the user's affirmative response** before marking the stage as skipped.
+
+If the user does not respond or does not agree, **execute the stage normally**.
+
+### Executing the Skip (Only After User Approval)
+
+Only after the user has explicitly approved the skip:
 
 ```bash
-bd update <stage-id> --status done --notes "SKIPPED: [detailed rationale]"
-bd update <review-gate-id> --status done --notes "SKIPPED: Stage was skipped - [rationale]"
+bd update <stage-id> --status done --notes "SKIPPED: [detailed rationale] -- User approved skip."
+bd update <review-gate-id> --status done --notes "SKIPPED: Stage was skipped - [rationale] -- User approved."
 ```
 
 ### Re-enabling a Skipped Stage

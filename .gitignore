@@ -1,0 +1,25 @@
+# Beads database (SQLite) -- auto-managed, not tracked in git
+# The JSONL export (.beads/issues.jsonl) IS tracked for portability
+.beads/
+!.beads/issues.jsonl
+
+# IDE and editor config (user-specific)
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js (if applicable)
+node_modules/
+
+# Build artifacts (project-specific -- extend as needed)
+dist/
+build/
+out/

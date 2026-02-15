@@ -27,7 +27,11 @@ extract_id() {
 # Step 1: Initialize Beads
 echo "[1/5] Initializing Beads..."
 bd init --prefix ab
+
+# Configure beads.role to suppress "beads.role not configured" warnings
+git config beads.role maintainer
 echo "  Beads initialized with prefix 'ab-'"
+echo "  Configured beads.role = maintainer"
 
 # Step 2: Create directory structure
 echo "[2/5] Creating artifact directory structure..."
@@ -46,7 +50,7 @@ echo "[3/5] Creating phase epics..."
 INCEPTION_OUT=$(bd create "INCEPTION PHASE" -t epic -p 1 \
     --description "Planning and architecture. Determines WHAT to build and WHY." \
     --labels "phase:inception,project:$PROJECT_TYPE" \
-    --acceptance "All inception stages completed or skipped. Human approval at each gate." \
+    --acceptance "All inception stages completed or skipped with explicit user approval. Human approval at each gate." \
     --json)
 INCEPTION_ID=$(extract_id "$INCEPTION_OUT")
 
