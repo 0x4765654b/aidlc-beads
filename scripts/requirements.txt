@@ -1,0 +1,14 @@
+# Python dependencies for AIDLC-Beads sync tooling
+# Install: pip install -r scripts/requirements.txt
+
+# Outline Wiki API client
+requests>=2.31.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# YAML support (for frontmatter parsing if needed)
+pyyaml>=6.0
+
+# Rich terminal output for sync status
+rich>=13.0.0

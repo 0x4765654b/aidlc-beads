@@ -18,6 +18,8 @@ See [docs/design/architecture-c-detailed-design.md](docs/design/architecture-c-d
 - [Beads CLI](https://github.com/steveyegge/beads) (`bd`) installed
 - Git
 - An AI coding agent (Cursor, Claude Code, Sourcegraph Amp, etc.)
+- Docker and Docker Compose (for Outline review UI -- optional but recommended)
+- Python 3.11+ (for Outline sync script -- optional)
 
 ### Install Beads
 
@@ -71,8 +73,9 @@ Copy-Item "$template\aidlc-beads-rules" "$project\aidlc-beads-rules" -Recurse
 Copy-Item "$template\scripts"           "$project\scripts"           -Recurse
 Copy-Item "$template\templates"         "$project\templates"         -Recurse
 
-# Directories (recommended -- design docs and reference rules)
+# Directories (recommended -- design docs, reference rules, and Outline config)
 Copy-Item "$template\docs"              "$project\docs"              -Recurse
+Copy-Item "$template\outline"           "$project\outline"           -Recurse
 
 # Initialize the aidlc-workflows submodule (original AIDLC rules reference)
 cd $project
@@ -101,8 +104,9 @@ cp -r "$TEMPLATE/aidlc-beads-rules" "$PROJECT/aidlc-beads-rules"
 cp -r "$TEMPLATE/scripts"           "$PROJECT/scripts"
 cp -r "$TEMPLATE/templates"         "$PROJECT/templates"
 
-# Directories (recommended -- design docs and reference rules)
+# Directories (recommended -- design docs, reference rules, and Outline config)
 cp -r "$TEMPLATE/docs"              "$PROJECT/docs"
+cp -r "$TEMPLATE/outline"           "$PROJECT/outline"
 
 # Initialize the aidlc-workflows submodule (original AIDLC rules reference)
 cd "$PROJECT"
@@ -122,6 +126,7 @@ git submodule update --init --recursive
 | `.gitmodules` | **Yes** | References the `aidlc-workflows` submodule |
 | `LICENSE` | Recommended | MIT license |
 | `docs/` | Recommended | Architecture specs, schema mapping, human interaction guide |
+| `outline/` | Recommended | Docker Compose config for Outline review UI |
 | `aidlc-workflows/` | Recommended | Original AIDLC rules (git submodule, referenced by beads-rules) |
 
 > **Do NOT copy** `.beads/`, `aidlc-docs/`, or `.claude/`. These are project-specific and will be generated fresh during initialization.
@@ -182,15 +187,40 @@ bd list --pretty
 
 The first ready task will be **Workspace Detection**, followed by **Requirements Analysis**.
 
-### Step 5: Review and Approve at Each Gate
+### Step 5: Set Up Outline for Document Review (Optional but Recommended)
 
-As the agent completes each stage, it will pause at **review gates** and ask you to review the generated artifacts (markdown documents in `aidlc-docs/`). To approve and let the agent continue:
+Outline provides a web-based WYSIWYG interface so non-technical stakeholders can review and edit artifacts without using a text editor or command line.
+
+```bash
+# Configure Outline
+cd outline/
+cp .env.example .env
+# Edit .env -- set secrets and auth provider (see docs/design/outline-integration.md)
+
+# Start Outline
+docker compose up -d
+
+# Install sync dependencies and initialize
+pip install -r scripts/requirements.txt
+# Create an API key at http://localhost:3000/settings/api, add to .env
+python scripts/sync-outline.py init
+```
+
+See [docs/design/outline-integration.md](docs/design/outline-integration.md) for detailed setup.
+
+### Step 6: Review and Approve at Each Gate
+
+As the agent completes each stage, it will pause at **review gates** and ask you to review the generated artifacts. Documents are automatically pushed to Outline for browser-based review.
+
+**Non-technical reviewers:** Open Outline in your browser, navigate to the "AIDLC Documents" collection, and review the formatted document. Use comments for feedback.
+
+**To approve and let the agent continue:**
 
 ```bash
 bd update <review-gate-id> --status done --notes "Approved."
 ```
 
-To request changes instead:
+**To request changes instead:**
 
 ```bash
 bd update <review-gate-id> --notes "Changes needed: [describe what to change]"
@@ -216,7 +246,7 @@ Point your agent at `AGENTS.md` and the rules in `aidlc-beads-rules/`. The agent
 
 ### 3. Review and Approve
 
-When the agent creates a review gate, review the referenced markdown artifact and approve:
+When the agent creates a review gate, review the document in Outline (or the raw markdown file) and approve:
 
 ```bash
 bd update <review-gate-id> --status done --notes "Approved."
@@ -240,16 +270,23 @@ aidlc-beads/
 │       └── workflow-planning-beads.md       # Execution plan with Beads deps
 ├── aidlc-workflows/                 # Original AIDLC rules (git submodule)
 ├── docs/
+│   ├── workflow-guide.md                      # Start here: what to expect
 │   └── design/
 │       ├── architecture-c-detailed-design.md  # Full architecture spec
 │       ├── beads-schema-mapping.md            # Issue schema mapping
 │       ├── cross-reference-contract.md        # Cross-ref conventions
-│       └── human-interaction-guide.md         # Human interaction patterns
+│       ├── human-interaction-guide.md         # Human interaction patterns
+│       └── outline-integration.md             # Outline Wiki setup and design
+├── outline/
+│   ├── docker-compose.yml           # Outline + Postgres + Redis
+│   └── .env.example                 # Environment variable template
 ├── templates/
 │   └── artifact-header.md           # Markdown header template
 ├── scripts/
 │   ├── init-aidlc-project.ps1       # Windows initialization
-│   └── init-aidlc-project.sh        # Linux/macOS initialization
+│   ├── init-aidlc-project.sh        # Linux/macOS initialization
+│   ├── sync-outline.py              # Bidirectional Outline sync
+│   └── requirements.txt             # Python dependencies for sync
 └── .beads/                          # Beads database (auto-created)
 ```
 
@@ -286,6 +323,8 @@ Each phase contains stages that may be always-execute or conditional. Every stag
 - Execution plans
 - All rich document artifacts that humans need to review
 
+These documents live in `aidlc-docs/` as markdown files (source of truth) and are synced to an **Outline Wiki** instance so non-technical users can review and edit them through a WYSIWYG web interface.
+
 ## Multi-Agent Support
 
 Beads enables multiple agents to work on an AIDLC project simultaneously:
@@ -296,12 +335,14 @@ Beads enables multiple agents to work on an AIDLC project simultaneously:
 
 Hash-based issue IDs and Dolt-powered merges prevent conflicts across branches and agents.
 
-## Design Documents
+## Documentation
 
-- [Architecture C Detailed Design](docs/design/architecture-c-detailed-design.md) -- Full specification
+- **[Workflow Guide](docs/workflow-guide.md)** -- Start here. What to expect when using the system, end to end.
+- [Human Interaction Guide](docs/design/human-interaction-guide.md) -- Reference for all human actions (approvals, Q&A, edits)
+- [Outline Integration](docs/design/outline-integration.md) -- WYSIWYG review UI setup and design
+- [Architecture C Detailed Design](docs/design/architecture-c-detailed-design.md) -- Full technical specification
 - [Beads Schema Mapping](docs/design/beads-schema-mapping.md) -- How AIDLC maps to Beads issues
 - [Cross-Reference Contract](docs/design/cross-reference-contract.md) -- Linking Beads and markdown
-- [Human Interaction Guide](docs/design/human-interaction-guide.md) -- All human workflows
 
 ## References
 

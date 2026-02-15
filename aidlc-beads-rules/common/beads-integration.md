@@ -20,11 +20,16 @@ git config beads.role maintainer
 
 # 3. Check for in-progress work from a previous session
 bd list --status in_progress --json
+
+# 4. Pull any edits humans made in Outline since last session
+python scripts/sync-outline.py pull
 ```
 
 If there are `in_progress` issues, the agent SHOULD resume that work before starting new tasks.
 
 If there are `ready` issues (unblocked, open), the agent SHOULD pick the highest-priority one.
+
+**Note:** Step 4 (Outline pull) may fail if Outline is not configured. This is non-fatal -- skip it and continue with file-based workflow.
 
 ---
 
@@ -58,12 +63,18 @@ bd update <stage-id> --status done --notes "artifact: aidlc-docs/path/to/artifac
 bd show <review-gate-id> --json
 # Verify: assignee=human, status=open, notes contain artifact path
 
-# 3. Sync the database
+# 3. Push artifacts to Outline for human review
+python scripts/sync-outline.py push
+
+# 4. Sync the database
 bd sync
 
-# 4. Present the AIDLC completion message to the user (see stage rule file)
-# 5. STOP and wait for human approval on the review gate
+# 5. Present the AIDLC completion message to the user (see stage rule file)
+#    Include: "The document is available for review in Outline."
+# 6. STOP and wait for human approval on the review gate
 ```
+
+**Note:** Step 3 (Outline push) may fail if Outline is not configured. This is non-fatal -- the human can still review the raw markdown file directly.
 
 ---
 
@@ -77,9 +88,10 @@ Review gates are created during project initialization (see workspace-detection-
 
 After a human updates a review gate:
 
-1. Check the notes for feedback: `bd show <review-gate-id> --json`
-2. If status is `done` → proceed to next stage.
-3. If notes contain change requests but status is NOT `done` → address the changes, update the artifact, and notify the human again.
+1. Pull any edits the human made in Outline: `python scripts/sync-outline.py pull`
+2. Check the notes for feedback: `bd show <review-gate-id> --json`
+3. If status is `done` → proceed to next stage.
+4. If notes contain change requests but status is NOT `done` → address the changes, update the artifact, push to Outline (`python scripts/sync-outline.py push`), and notify the human again.
 
 ---
 

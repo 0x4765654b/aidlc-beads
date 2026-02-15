@@ -19,7 +19,12 @@ bd list --status in_progress --json
 
 # Full project state
 bd list --json
+
+# Pull any edits humans made in Outline since last session
+python scripts/sync-outline.py pull
 ```
+
+**Note:** The Outline pull may fail if Outline is not configured. This is non-fatal -- skip and continue.
 
 ### Step 2: Determine Project Context
 
@@ -99,12 +104,16 @@ Before ending a session:
 2. Update Beads issues to reflect current state:
    - Mark completed stages as `done`.
    - Leave in-progress work as `in_progress` with a note about where you stopped.
-3. Run `bd sync` to push all Beads changes to git.
-4. File any discovered work as new Beads issues.
+3. Push any new or updated artifacts to Outline for human review.
+4. Run `bd sync` to push all Beads changes to git.
+5. File any discovered work as new Beads issues.
 
 ```bash
 # Update current work status
 bd update <current-stage> --notes "Session ended. Completed: [summary]. Remaining: [what's left]."
+
+# Push artifacts to Outline
+python scripts/sync-outline.py push
 
 # Sync to git
 bd sync

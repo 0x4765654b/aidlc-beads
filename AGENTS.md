@@ -50,6 +50,15 @@ This is the **highest-priority rule** and overrides all other guidance.
 - **DO** store artifact paths in the Beads issue `notes` field using `artifact: <path>` format.
 - **DO NOT** store long-form content (requirements docs, design docs) inside Beads issue fields.
 
+### 2a. Outline Is the Review Surface for Non-Technical Users
+
+- **DO** run `python scripts/sync-outline.py push` after creating or updating artifacts, so they appear in Outline for human reviewers.
+- **DO** run `python scripts/sync-outline.py pull` before resuming work, to pick up any edits humans made in Outline.
+- **DO** include the Outline document URL in review gate notes when possible.
+- **DO NOT** treat Outline as the source of truth -- Git files in `aidlc-docs/` are canonical.
+- **DO NOT** skip the push step -- non-technical reviewers rely on Outline to see documents.
+- See `docs/design/outline-integration.md` for full setup and usage.
+
 ### 3. Cross-Reference Convention
 
 When creating a markdown artifact:
@@ -73,9 +82,11 @@ bd update <issue-id> --notes "artifact: aidlc-docs/path/to/artifact.md"
 After completing a stage that requires human review:
 
 1. Create or update the review gate issue (assigned to `human`).
-2. Present the standard AIDLC completion message to the user.
-3. **STOP** and wait for the human to close the review gate via `bd update <id> --status done`.
-4. Do not proceed past a review gate until `bd ready --json` shows the next stage is unblocked.
+2. Push the artifact to Outline: `python scripts/sync-outline.py push`
+3. Present the standard AIDLC completion message to the user, noting that the document is available for review in Outline.
+4. **STOP** and wait for the human to close the review gate via `bd update <id> --status done`.
+5. Do not proceed past a review gate until `bd ready --json` shows the next stage is unblocked.
+6. Before starting the next stage, pull any Outline edits: `python scripts/sync-outline.py pull`
 
 ### 5. Questions
 
@@ -91,8 +102,9 @@ When resuming a session:
 
 1. Run `bd ready --json` to find unblocked work.
 2. Run `bd list --status in_progress --json` to see what was in progress.
-3. Load the relevant markdown artifacts referenced in the issue `notes` fields.
-4. Continue where the previous session left off.
+3. Pull any remote edits from Outline: `python scripts/sync-outline.py pull`
+4. Load the relevant markdown artifacts referenced in the issue `notes` fields.
+5. Continue where the previous session left off.
 
 ### 7. Conditional Stage Skipping (Requires User Permission)
 
@@ -146,6 +158,7 @@ aidlc-workflows/      # Original AIDLC rules (reference)
 docs/design/          # Architecture and design documentation
 templates/            # Artifact templates
 scripts/              # Setup and utility scripts
+outline/              # Outline Wiki Docker config (review UI for humans)
 .beads/               # Beads database (auto-managed)
 ```
 
@@ -474,6 +487,7 @@ bd search "keyword"
 ```bash
 bd ready --json
 bd list --status in_progress --json
+python scripts/sync-outline.py pull
 ```
 
 **Claim and begin a stage:**
@@ -486,7 +500,8 @@ bd update <stage-id> --claim
 bd update <stage-id> --status done \
   --notes "artifact: aidlc-docs/inception/requirements/requirements.md\nCompleted: Requirements analysis at standard depth."
 bd update <review-gate-id> \
-  --notes "artifact: aidlc-docs/inception/requirements/requirements.md\nPlease review the requirements document."
+  --notes "artifact: aidlc-docs/inception/requirements/requirements.md\nPlease review the requirements document in Outline."
+python scripts/sync-outline.py push
 bd sync
 ```
 
@@ -523,5 +538,6 @@ bd dep add <issue-id> <epic-id> --type parent
 **End of session:**
 ```bash
 bd update <current-stage> --append-notes "Session ended. Completed: [summary]. Remaining: [what's left]."
+python scripts/sync-outline.py push
 bd sync
 ```
