@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Date -Format \"yyyy-MM-ddTHH:mm:sszzz\")",
+      "Bash(powershell -Command \"New-Item -ItemType Directory -Force -Path ''c:\\\\dev\\\\test_prs\\\\aidlc-workflows\\\\.aidlc-rule-details''; Copy-Item ''c:\\\\dev\\\\test_prs\\\\aidlc-workflows\\\\aidlc-rules\\\\aws-aidlc-rule-details\\\\*'' ''c:\\\\dev\\\\test_prs\\\\aidlc-workflows\\\\.aidlc-rule-details\\\\'' -Recurse -Force\")",
+      "Bash(powershell:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:strandsagents.com)",
+      "Bash(uv run ruff check:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv pip install:*)",
+      "Bash(uv sync:*)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(uv run python:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "awslabs.core-mcp-server",
+    "awslabs.aws-api-mcp-server",
+    "aws-knowledge-mcp-server",
+    "awslabs.cdk-mcp-server",
+    "awslabs.aws-diagram-mcp-server",
+    "awslabs.aws-pricing-mcp-server",
+    "awslabs.cloudwatch-mcp-server"
+  ]
+}
