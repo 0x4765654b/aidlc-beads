@@ -1,0 +1,29 @@
+graph TB
+    subgraph interfaces [Human Interfaces]
+        ChatUI["Chat UI\nReal-time"]
+        CLI["CLI (gt)\nScripting"]
+        MailUI["Agent Mail Overseer\nAsync"]
+    end
+
+    subgraph harmbeCore [Harmbe Core Agent]
+        Router[Message Router]
+        Registry[Project Registry]
+        State[Persistent State]
+    end
+
+    subgraph downstream [Downstream Agents]
+        PM1["Project Minder A"]
+        PM2["Project Minder B"]
+        Groomer[Groomer]
+    end
+
+    ChatUI -->|"sync request/response"| Router
+    CLI -->|"sync request/response"| Router
+    MailUI -->|"async messages"| Router
+    Router --> Registry
+    Router --> State
+    Router -->|"dispatches"| PM1
+    Router -->|"dispatches"| PM2
+    Groomer -->|"notifications"| Router
+    Router -->|"push notifications"| ChatUI
+    Router -->|"email notifications"| MailUI

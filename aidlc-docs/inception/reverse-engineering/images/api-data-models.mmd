@@ -1,0 +1,36 @@
+graph TB
+    subgraph beadsAPI [Beads CLI API]
+        bdReady["bd ready\n--json"]
+        bdCreate["bd create\ntask/epic/message"]
+        bdUpdate["bd update\n--claim/--status"]
+        bdDep["bd dep add\nblocks/parent"]
+        bdSync["bd sync\nexport JSONL"]
+        bdShow["bd show\n--json"]
+    end
+
+    subgraph outlineAPI [Outline REST API]
+        collList["collections.list"]
+        collCreate["collections.create"]
+        docList["documents.list"]
+        docCreate["documents.create"]
+        docUpdate["documents.update"]
+        docSearch["documents.search"]
+    end
+
+    subgraph dataModels [Data Models]
+        Issue["Beads Issue\nid, title, status,\npriority, type,\nlabels, notes"]
+        Dep["Dependency\nissue_id, depends_on_id,\ntype"]
+        SyncState["Sync State\ncollection_id,\ndocuments map,\ncontent_hash"]
+        Artifact["Artifact Header\nbeads-issue,\nbeads-review"]
+    end
+
+    bdReady --> Issue
+    bdCreate --> Issue
+    bdUpdate --> Issue
+    bdDep --> Dep
+    bdSync --> Issue
+    bdShow --> Issue
+    docCreate --> SyncState
+    docUpdate --> SyncState
+    Issue -->|"notes: artifact path"| Artifact
+    Artifact -->|"beads-issue header"| Issue

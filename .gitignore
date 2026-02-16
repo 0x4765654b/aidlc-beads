@@ -23,6 +23,9 @@ node_modules/
 outline/.env
 outline/docker-compose.override.yml
 
+# Infrastructure secrets
+infra/.env
+
 # Python
 __pycache__/
 *.pyc

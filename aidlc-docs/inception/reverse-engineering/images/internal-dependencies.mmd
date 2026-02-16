@@ -1,0 +1,27 @@
+graph TB
+    subgraph framework [AIDLC-Beads Framework]
+        BeadsRules["aidlc-beads-rules/"]
+        SyncScript["sync-outline.py"]
+        InitScripts["init-aidlc-project.*"]
+        Templates["templates/"]
+        AgentsMD["AGENTS.md"]
+        DesignDocs["docs/design/"]
+    end
+
+    subgraph submodule [Git Submodule]
+        OrigRules["aidlc-workflows/"]
+    end
+
+    subgraph data [Data Stores]
+        BeadsDB[".beads/"]
+        AidlcDocs["aidlc-docs/"]
+        SyncState[".beads/outline-sync-state.json"]
+    end
+
+    BeadsRules -->|"references content from"| OrigRules
+    InitScripts -->|"creates issues in"| BeadsDB
+    SyncScript -->|"reads/writes"| AidlcDocs
+    SyncScript -->|"maintains"| SyncState
+    Templates -->|"used by agents creating"| AidlcDocs
+    AgentsMD -->|"documents usage of"| BeadsDB
+    DesignDocs -->|"specifies contracts for"| BeadsRules

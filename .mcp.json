@@ -10,6 +10,15 @@
                 "FASTMCP_LOG_LEVEL": "ERROR"
             }
         },
+        "mcp-mermaid": {
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "mcp-mermaid"
+            ]
+        },
         "awslabs.aws-api-mcp-server": {
             "autoApprove": [
                 "call_aws",

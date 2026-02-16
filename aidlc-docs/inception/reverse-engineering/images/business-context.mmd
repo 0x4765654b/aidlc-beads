@@ -1,0 +1,28 @@
+graph TB
+    subgraph users [Users]
+        Dev[Developer / AI Agent]
+        Reviewer[Non-Technical Reviewer]
+    end
+
+    subgraph aidlcBeads [AIDLC-Beads System]
+        Rules[AIDLC Workflow Rules]
+        BeadsDB[Beads Issue Tracker]
+        Artifacts[Markdown Artifacts]
+        SyncTool[Outline Sync Tool]
+    end
+
+    subgraph external [External Systems]
+        Outline[Outline Wiki]
+        Git[Git Repository]
+        LLM[AI Agent / LLM]
+    end
+
+    Dev -->|"follows rules"| Rules
+    Dev -->|"manages workflow via"| BeadsDB
+    Dev -->|"creates/reads"| Artifacts
+    SyncTool -->|"pushes/pulls docs"| Outline
+    SyncTool -->|"reads/writes"| Artifacts
+    Reviewer -->|"reviews docs in"| Outline
+    BeadsDB -->|"exports JSONL to"| Git
+    Artifacts -->|"version controlled in"| Git
+    LLM -->|"executes stages per"| Rules

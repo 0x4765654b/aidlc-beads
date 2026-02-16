@@ -1,0 +1,47 @@
+graph TB
+    subgraph humanLayer [Human Interaction Layer]
+        OutlineWiki["Outline Wiki\n(Docker)"]
+        Browser[Web Browser]
+    end
+
+    subgraph scriptLayer [Script / Tooling Layer]
+        Python["Python 3\nsync-outline.py"]
+        PowerShell["PowerShell\ninit-aidlc-project.ps1"]
+        Bash["Bash\ninit-aidlc-project.sh"]
+    end
+
+    subgraph cliLayer [CLI Layer]
+        BeadsCLI["Beads CLI (bd)\nWorkflow Orchestration"]
+        GitCLI["Git CLI\nVersion Control"]
+    end
+
+    subgraph dataLayer [Data Layer]
+        Markdown["Markdown Files\nRules + Artifacts + Docs"]
+        JSONL["JSONL\nBeads Issue Export"]
+        SQLite["SQLite\nBeads Database"]
+    end
+
+    subgraph infraLayer [Infrastructure Layer]
+        Docker["Docker + Compose"]
+        PostgreSQL["PostgreSQL 16"]
+        Redis["Redis 7"]
+    end
+
+    subgraph mcpLayer [MCP Integrations]
+        Bedrock["AWS Bedrock MCP"]
+        CDK["AWS CDK MCP"]
+        CloudWatch["CloudWatch MCP"]
+    end
+
+    Browser --> OutlineWiki
+    Python --> OutlineWiki
+    Python --> Markdown
+    PowerShell --> BeadsCLI
+    Bash --> BeadsCLI
+    BeadsCLI --> SQLite
+    BeadsCLI --> JSONL
+    GitCLI --> Markdown
+    GitCLI --> JSONL
+    Docker --> OutlineWiki
+    Docker --> PostgreSQL
+    Docker --> Redis

@@ -1,0 +1,36 @@
+# Gorilla Troop Orchestrator -- Python image with FastAPI, Strands SDK, bd CLI
+
+# ── Development stage ─────────────────────────────────────────────
+FROM python:3.13-slim AS dev
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl git && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY orchestrator/ orchestrator/
+COPY cli/ cli/
+COPY scripts/ scripts/
+COPY templates/ templates/
+
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+CMD ["uvicorn", "orchestrator.api.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
+
+# ── Production stage ──────────────────────────────────────────────
+FROM dev AS prod
+
+# No additional changes needed for now; prod and dev share the same base.
+# In the future, this stage can strip dev dependencies and add optimizations.
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:8000/api/health || exit 1
+
+CMD ["uvicorn", "orchestrator.api.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]

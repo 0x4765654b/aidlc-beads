@@ -1,0 +1,156 @@
+services:
+  # ── Orchestrator API (FastAPI + Agent Engine) ──────────────────
+  orchestrator:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.orchestrator
+    ports:
+      - "${ORCHESTRATOR_PORT:-9741}:8000"
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE:-ai3_d}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID:-us.anthropic.claude-opus-4-6-v1}
+      - BEDROCK_REGION=${BEDROCK_REGION:-us-east-1}
+      - AGENT_MAIL_URL=http://agent-mail:8765
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:9741
+      - GORILLA_WORKSPACE=/workspace
+      - DEFAULT_PROJECT_KEY=${DEFAULT_PROJECT_KEY:-aidlc-beads}
+      - DEFAULT_PROJECT_NAME=${DEFAULT_PROJECT_NAME:-AIDLC Beads}
+      - DEFAULT_PROJECT_PATH=/workspace/project
+    volumes:
+      - beads-data:/workspace/.beads
+      - ${PROJECT_WORKSPACE:-..}:/workspace/project
+      - ${AWS_CONFIG_DIR:-~/.aws}:/root/.aws:ro
+    depends_on:
+      agent-mail:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+  # ── Dashboard (nginx serving React SPA) ────────────────────────
+  dashboard:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.dashboard
+    ports:
+      - "${DASHBOARD_PORT:-3000}:80"
+    depends_on:
+      orchestrator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+  # ── MCP Agent Mail Server ──────────────────────────────────────
+  agent-mail:
+    image: python:3.13-slim
+    command: >
+      bash -c "apt-get update -qq && apt-get install -y -qq --no-install-recommends git curl >/dev/null 2>&1 &&
+      pip install --no-cache-dir -q mcp-agent-mail &&
+      python -m mcp_agent_mail.http --host 0.0.0.0 --port 8765"
+    volumes:
+      - agent-mail-data:/data
+    environment:
+      - AGENT_MAIL_DATA_DIR=/data
+      - HTTP_ALLOW_LOCALHOST_UNAUTHENTICATED=true
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8765/mail"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 90s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+  # ── Outline Wiki (optional -- requires auth provider) ──────────
+  # Start with: docker compose --profile outline up
+  outline:
+    profiles: ["outline"]
+    image: outlinewiki/outline:latest
+    environment:
+      - DATABASE_URL=postgres://outline:${OUTLINE_DB_PASSWORD:-outline}@postgres:5432/outline
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=${OUTLINE_SECRET_KEY:-aa2efcfa7761e9fe81a4390f1b305e572b116528db854e796d7072e0469811c2}
+      - UTILS_SECRET=${OUTLINE_UTILS_SECRET:-3f56838720cb5fc09c12eec5db9c27ef98d82f459a0bb9b3a0e9dec604b3be32}
+      - URL=${OUTLINE_URL:-http://localhost:3001}
+      - PORT=3000
+      - FORCE_HTTPS=false
+      - FILE_STORAGE=local
+      - FILE_STORAGE_LOCAL_ROOT_DIR=/var/lib/outline/data
+    volumes:
+      - outline-data:/var/lib/outline/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/info"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+  # ── PostgreSQL (for Outline) ───────────────────────────────────
+  postgres:
+    profiles: ["outline"]
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=outline
+      - POSTGRES_PASSWORD=${OUTLINE_DB_PASSWORD:-outline}
+      - POSTGRES_DB=outline
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U outline"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+  # ── Redis (for Outline) ────────────────────────────────────────
+  redis:
+    profiles: ["outline"]
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - gorilla-net
+
+volumes:
+  beads-data:
+  agent-mail-data:
+  outline-data:
+  postgres-data:
+  redis-data:
+
+networks:
+  gorilla-net:
+    driver: bridge

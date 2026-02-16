@@ -1,0 +1,51 @@
+sequenceDiagram
+    participant Human
+    participant Harmbe
+    participant PM as ProjectMinder
+    participant Chimp as Chimp
+    participant George as CuriousGeorge
+    participant Gibbon
+    participant Snake
+    participant Bonobo
+    participant Groomer
+
+    Note over Human,Groomer: Session Start
+    Harmbe->>Groomer: Check inbox for overnight changes
+    Groomer-->>Harmbe: Status report
+    Harmbe->>PM: Resume project
+
+    Note over PM,Chimp: Stage Execution
+    PM->>Chimp: DISPATCH message via Agent Mail
+    Chimp->>Bonobo: Write artifact via Scribe tools
+    Bonobo-->>Chimp: Write confirmed
+    Chimp-->>PM: Stage complete via Agent Mail
+
+    Note over PM,Snake: Security Check
+    PM->>Snake: Review artifacts
+    Snake-->>PM: Findings report
+
+    Note over PM,Human: Review Gate
+    PM->>Harmbe: Review gate ready
+    Harmbe->>Human: Artifact ready for review in Outline
+    Human->>Harmbe: Approved / Rejected with feedback
+
+    alt Approved
+        Harmbe->>PM: Gate passed
+        PM->>PM: Dispatch next stage
+    else Rejected
+        Harmbe->>PM: Gate rejected with feedback
+        PM->>Gibbon: Rework request
+        Gibbon->>Chimp: Re-execute with feedback
+        Chimp-->>Gibbon: Revised artifact
+        Gibbon-->>PM: Rework complete
+    end
+
+    Note over Chimp,George: Error Handling
+    Chimp->>George: Error encountered
+    alt Fixable
+        George->>Bonobo: Apply fix
+        George-->>Chimp: Error resolved
+    else Not Fixable
+        George->>Harmbe: Escalation with diagnostic
+        Harmbe->>Human: Need human help
+    end

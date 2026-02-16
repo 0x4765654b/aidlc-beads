@@ -1,0 +1,26 @@
+graph TB
+    subgraph humanInterfaces [Human Interfaces]
+        HarmbeUI["Harmbe Dashboard\nChat + Review + Status"]
+        OutlineUI["Outline Wiki\nNon-Technical View"]
+        CLI["gt CLI\nScripting"]
+    end
+
+    subgraph backendSystems [Backend Systems]
+        Beads["Beads (bd CLI)\nWorkflow State"]
+        Mail["MCP Agent Mail\nAsync Messaging"]
+    end
+
+    subgraph agents [Agent Fleet]
+        Harmbe[Harmbe Core Agent]
+        PM[Project Minder]
+        Chimps[Chimps]
+    end
+
+    HarmbeUI <-->|"sync: chat, review, approve"| Harmbe
+    OutlineUI -->|"action buttons send instructions"| Harmbe
+    CLI -->|"commands"| Harmbe
+    Harmbe -->|"push notifications"| HarmbeUI
+    Harmbe -->|"push status flags"| OutlineUI
+    Beads -->|"status, deps, priorities"| PM
+    Mail <-->|"inter-agent messages"| agents
+    Harmbe -->|"dispatches"| PM

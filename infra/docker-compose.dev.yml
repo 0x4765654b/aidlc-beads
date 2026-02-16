@@ -1,0 +1,44 @@
+# Development overrides -- use with:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  orchestrator:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.orchestrator
+      target: dev
+    command: uvicorn orchestrator.api.app:create_app --factory --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ../orchestrator:/app/orchestrator
+      - ../cli:/app/cli
+      - ../tests:/app/tests
+      - beads-data:/workspace/.beads
+      - ${PROJECT_WORKSPACE:-./workspace}:/workspace/projects
+
+  dashboard:
+    build:
+      context: ../dashboard
+      dockerfile: ../infra/Dockerfile.dashboard
+      target: dev
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../dashboard/src:/app/src
+
+  # Expose internal services for debugging in dev mode
+  agent-mail:
+    ports:
+      - "8765:8765"
+
+  outline:
+    ports:
+      - "3001:3000"
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant Agent as AI Agent
+    participant Rules as AIDLC Rules
+    participant Beads as Beads (bd CLI)
+    participant Docs as aidlc-docs/
+    participant Sync as sync-outline.py
+    participant Outline as Outline Wiki
+    participant Human as Human Reviewer
+
+    Note over Agent,Human: Stage Execution Flow
+    Agent->>Beads: bd ready --json (find unblocked work)
+    Agent->>Beads: bd update --claim (claim stage)
+    Agent->>Rules: Read stage rule file
+    Agent->>Docs: Read upstream artifacts for context
+    Agent->>Docs: Create stage artifacts (with headers)
+    Agent->>Beads: bd update --status done --notes "artifact: path"
+    Agent->>Sync: python sync-outline.py push
+    Sync->>Outline: Create/update document
+
+    Note over Agent,Human: Review Gate Flow
+    Agent->>Beads: bd create "REVIEW: ..." (review gate)
+    Agent->>Human: Notify: artifact ready for review
+    Human->>Outline: Review and optionally edit document
+    Human->>Beads: bd update review-id --status done
+    Agent->>Sync: python sync-outline.py pull (get edits)
+    Agent->>Beads: bd ready --json (next stage unblocked)

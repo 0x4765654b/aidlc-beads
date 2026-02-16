@@ -1,0 +1,37 @@
+graph LR
+    subgraph rules [Workflow Rules - 25 files]
+        Original["Original AIDLC\n20 files\n(submodule)"]
+        Adapted["Beads-Adapted\n5 files\n(project-owned)"]
+    end
+
+    subgraph scripts [Scripts - 4 files]
+        SyncPy["sync-outline.py\n531 lines"]
+        InitPS["init-project.ps1"]
+        InitSH["init-project.sh"]
+        ReqsTxt["requirements.txt"]
+    end
+
+    subgraph docs [Documentation - 8 files]
+        DesignDocs["Design Docs\n6 files"]
+        WorkflowGuide["workflow-guide.md"]
+        Template["artifact-header.md"]
+    end
+
+    subgraph config [Configuration - 6 files]
+        AgentsMD["AGENTS.md\n544 lines"]
+        ReadmeMD["README.md\n357 lines"]
+        MCPJson[".mcp.json"]
+        GitIgnore[".gitignore"]
+        GitModules[".gitmodules"]
+        License["LICENSE"]
+    end
+
+    subgraph infra [Infrastructure - 2 files]
+        DockerYml["docker-compose.yml"]
+        EnvExample[".env.example"]
+    end
+
+    subgraph data [Data Stores]
+        BeadsDB[".beads/\nSQLite + JSONL"]
+        AidlcDocs["aidlc-docs/\nArtifacts"]
+    end

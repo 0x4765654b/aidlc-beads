@@ -1,0 +1,41 @@
+graph TB
+    subgraph aws [AWS Cloud]
+        subgraph compute [Compute - ECS Fargate]
+            OrchestratorECS["orchestrator\nFargate Task"]
+            DashboardECS["dashboard\nFargate Task"]
+            AgentMailECS["agent-mail\nFargate Task"]
+            OutlineECS["outline\nFargate Task"]
+        end
+
+        subgraph data [Data Layer]
+            EFS["EFS\nWorkspace + Artifacts"]
+            RDS["RDS PostgreSQL\nOutline DB"]
+            ElastiCache["ElastiCache Redis\nOutline Cache"]
+            EFSMail["EFS\nAgent Mail Data"]
+        end
+
+        subgraph networking [Networking]
+            ALB["Application Load Balancer\nHTTPS termination"]
+            CloudFront["CloudFront\nDashboard CDN"]
+        end
+
+        subgraph ai [AI]
+            BedrockService["Bedrock\nClaude Opus 4.6\nGlobal Endpoints"]
+        end
+    end
+
+    subgraph externalSvc [External]
+        GitHub["GitHub / CodeCommit\nGit Remote"]
+        Users["Team Members\nBrowser"]
+    end
+
+    Users --> CloudFront --> ALB
+    ALB --> DashboardECS
+    ALB --> OutlineECS
+    OrchestratorECS --> BedrockService
+    OrchestratorECS --> AgentMailECS
+    OrchestratorECS --> EFS
+    AgentMailECS --> EFSMail
+    OutlineECS --> RDS
+    OutlineECS --> ElastiCache
+    OrchestratorECS --> GitHub

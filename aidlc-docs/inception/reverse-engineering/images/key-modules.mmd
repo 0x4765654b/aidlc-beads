@@ -1,0 +1,25 @@
+graph TB
+    subgraph agentRules [Agent Rule System]
+        CoreWorkflow["core-workflow.md\n(orchestrator)"]
+        InceptionStages["Inception Stage Rules\n(7 files)"]
+        ConstructionStages["Construction Stage Rules\n(6 files)"]
+        OpsStages["Operations Rules\n(1 file)"]
+        CommonGuidance["Common Guidance\n(11 files)"]
+        BeadsAdapted["Beads-Adapted Rules\n(5 files)"]
+    end
+
+    subgraph scripts [Script Modules]
+        SyncOutline["sync-outline.py\n(531 lines)"]
+        InitPS["init-aidlc-project.ps1"]
+        InitSH["init-aidlc-project.sh"]
+    end
+
+    subgraph infrastructure [Infrastructure]
+        DockerCompose["outline/docker-compose.yml"]
+    end
+
+    CoreWorkflow --> InceptionStages
+    CoreWorkflow --> ConstructionStages
+    CoreWorkflow --> OpsStages
+    CoreWorkflow --> CommonGuidance
+    BeadsAdapted -->|"references"| CoreWorkflow

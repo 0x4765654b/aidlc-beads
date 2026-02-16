@@ -1,0 +1,37 @@
+graph TB
+    subgraph workflowLayer [Workflow Layer]
+        OriginalRules["Original AIDLC Rules\n(aidlc-workflows/ submodule)"]
+        BeadsRules["Beads-Adapted Rules\n(aidlc-beads-rules/)"]
+        Templates["Artifact Templates\n(templates/)"]
+    end
+
+    subgraph stateLayer [State Layer]
+        BeadsCLI["Beads CLI (bd)"]
+        BeadsDB["SQLite / JSONL\n(.beads/)"]
+        IssueGraph["Issue Graph\n(epics, stages, review gates, deps)"]
+    end
+
+    subgraph artifactLayer [Artifact Layer]
+        AidlcDocs["Markdown Artifacts\n(aidlc-docs/)"]
+        AppCode["Application Code\n(workspace root)"]
+    end
+
+    subgraph reviewLayer [Review Layer]
+        SyncScript["sync-outline.py"]
+        OutlineWiki["Outline Wiki\n(Docker: outline + postgres + redis)"]
+    end
+
+    subgraph versionControl [Version Control]
+        GitRepo["Git Repository"]
+    end
+
+    BeadsRules -->|"references"| OriginalRules
+    BeadsRules -->|"uses"| Templates
+    BeadsCLI --> BeadsDB
+    BeadsCLI --> IssueGraph
+    BeadsDB -->|"bd sync exports"| GitRepo
+    AidlcDocs -->|"tracked in"| GitRepo
+    AppCode -->|"tracked in"| GitRepo
+    SyncScript -->|"reads/writes"| AidlcDocs
+    SyncScript -->|"pushes/pulls"| OutlineWiki
+    AidlcDocs -->|"cross-referenced via headers"| IssueGraph

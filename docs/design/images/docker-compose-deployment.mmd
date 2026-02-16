@@ -1,0 +1,38 @@
+graph TB
+    subgraph dockerCompose [docker-compose.yml]
+        subgraph agentEngine [Agent Engine]
+            Orchestrator["orchestrator\nPython + Strands Agents\nRuns entire agent fleet"]
+        end
+
+        subgraph humanUI [Human Interfaces]
+            Dashboard["dashboard\nFastAPI + React\nPort 3001"]
+        end
+
+        subgraph commLayer [Communication Layer]
+            AgentMail["agent-mail\nFastMCP HTTP Server\nPort 8765"]
+        end
+
+        subgraph reviewLayer [Review Layer]
+            OutlineApp["outline\nPort 3000"]
+            OutlinePG["outline-postgres\nPostgreSQL 16"]
+            OutlineRedis["outline-redis\nRedis 7"]
+        end
+    end
+
+    subgraph external [External Services]
+        Bedrock["Amazon Bedrock\nClaude Opus 4.6\nGlobal Endpoints"]
+    end
+
+    subgraph volumes [Mounted Volumes]
+        Workspace["workspace\n(host: project repo)"]
+        MailData["agent-mail-data\n(SQLite + Git archive)"]
+    end
+
+    Orchestrator -->|"HTTPS API calls"| Bedrock
+    Orchestrator -->|"HTTP tools/messages"| AgentMail
+    Orchestrator -->|"reads/writes artifacts, runs bd CLI"| Workspace
+    Dashboard -->|"WebSocket + REST"| Orchestrator
+    Dashboard -->|"reads artifacts for viewer"| Workspace
+    OutlineApp --> OutlinePG
+    OutlineApp --> OutlineRedis
+    AgentMail --> MailData
