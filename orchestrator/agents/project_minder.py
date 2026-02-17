@@ -110,16 +110,16 @@ class ProjectMinder(BaseAgent):
         )
         logger.info("[INIT] Beads client imported successfully")
 
-        # Guard: skip if the project already has inception issues
+        # Guard: skip if the project already has OPEN inception issues
         try:
-            existing = list_issues(label="phase:inception")
+            existing = list_issues(label="phase:inception", status="open")
             project_issues = [
                 i for i in existing
                 if f"project:{self._project_key}" in i.labels
             ]
             if project_issues:
-                logger.info(
-                    "[INIT] Project %s already has %d inception issues — skipping scaffold",
+                logger.warning(
+                    "[INIT] Project %s already has %d open inception issues — skipping scaffold",
                     self._project_key,
                     len(project_issues),
                 )
@@ -290,7 +290,7 @@ class ProjectMinder(BaseAgent):
             if all_done:
                 logger.info("[ADVANCE] All stages complete")
                 return "All stages complete. Project finished."
-            logger.info("[ADVANCE] No stages ready — pipeline stalled")
+            logger.warning("[ADVANCE] No stages ready — pipeline stalled")
             return "No stages ready. Waiting on review gates or Q&A."
 
         # Pick the highest-priority ready stage (skip epics/non-stage issues)
@@ -306,7 +306,7 @@ class ProjectMinder(BaseAgent):
             )
 
         if not next_issue:
-            logger.info("[ADVANCE] No actionable stages in %d ready issues", len(ready_issues))
+            logger.warning("[ADVANCE] No actionable stages in %d ready issues", len(ready_issues))
             return "No actionable stages ready. Waiting on dependencies."
 
         # Find the right chimp

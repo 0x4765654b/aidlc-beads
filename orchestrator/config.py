@@ -25,7 +25,7 @@ class BedrockConfig:
         default_factory=lambda: float(os.environ.get("BEDROCK_TEMPERATURE", "0.1"))
     )
     max_tokens: int = field(
-        default_factory=lambda: int(os.environ.get("BEDROCK_MAX_TOKENS", "4096"))
+        default_factory=lambda: int(os.environ.get("BEDROCK_MAX_TOKENS", "65536"))
     )
 
     def create_boto_session(self):

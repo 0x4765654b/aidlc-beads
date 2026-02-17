@@ -10,6 +10,7 @@ services:
       - AWS_PROFILE=${AWS_PROFILE:-ai3_d}
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
       - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID:-us.anthropic.claude-opus-4-6-v1}
+      - BEDROCK_MAX_TOKENS=${BEDROCK_MAX_TOKENS:-65536}
       - BEDROCK_REGION=${BEDROCK_REGION:-us-east-1}
       - AGENT_MAIL_URL=http://agent-mail:8765
       - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:9741
