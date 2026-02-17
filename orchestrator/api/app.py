@@ -8,12 +8,20 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
+
+# Configure root logger so all application logs are visible in container output
+logging.basicConfig(
+    level=os.environ.get("GORILLA_LOG_LEVEL", "INFO"),
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 from fastapi.middleware.cors import CORSMiddleware
 
 from orchestrator.config import get_config
 from orchestrator.engine.project_registry import ProjectRegistry
 from orchestrator.engine.agent_engine import AgentEngine
 from orchestrator.engine.notification_manager import NotificationManager
+from orchestrator.engine.log_buffer import LogBuffer, BufferHandler
 from orchestrator.api.websocket import ConnectionManager
 
 logger = logging.getLogger("api")
@@ -25,6 +33,7 @@ def create_app(
     project_registry: ProjectRegistry | None = None,
     agent_engine: AgentEngine | None = None,
     notification_manager: NotificationManager | None = None,
+    log_buffer: LogBuffer | None = None,
 ) -> FastAPI:
     """Create and configure the FastAPI application.
 
@@ -35,6 +44,7 @@ def create_app(
         project_registry: Injected project registry (creates default if None).
         agent_engine: Injected agent engine (creates default if None).
         notification_manager: Injected notification manager (creates default if None).
+        log_buffer: Injected log buffer (creates default if None).
 
     Returns:
         Configured FastAPI instance.
@@ -50,10 +60,10 @@ def create_app(
             from orchestrator.wiring import wire_engine
 
             wire_engine(app.state.engine)
-            logger.info("Agent engine wired with Strands/Bedrock")
+            logger.info("[STARTUP] Agent engine wired — runners: %s", list(app.state.engine._runners.keys()))
         except Exception as e:
-            logger.warning(
-                "Could not wire Strands agents (agents will use placeholders): %s", e
+            logger.error(
+                "[STARTUP] FAILED to wire agents (engine has NO runners): %s", e, exc_info=True
             )
 
         # Auto-register default project if configured
@@ -99,10 +109,19 @@ def create_app(
     )
 
     # ── Shared state ──────────────────────────────────────────────────
-    app.state.registry = project_registry or ProjectRegistry()
+    app.state.registry = project_registry or ProjectRegistry(
+        workspace_root=Path(get_config().workspace_root)
+    )
     app.state.engine = agent_engine or AgentEngine()
     app.state.notifications = notification_manager or NotificationManager()
     app.state.ws_manager = ConnectionManager()
+    app.state.log_buffer = log_buffer or LogBuffer()
+
+    # Attach a BufferHandler to the root logger so all log records are
+    # captured in the ring buffer (zero changes to existing logging code).
+    _buffer_handler = BufferHandler(app.state.log_buffer)
+    _buffer_handler.setFormatter(logging.Formatter("%(name)s: %(message)s"))
+    logging.getLogger().addHandler(_buffer_handler)
 
     # ── CORS ──────────────────────────────────────────────────────────
     allowed_origins = os.environ.get(
@@ -124,6 +143,7 @@ def create_app(
     from orchestrator.api.routes.review import router as review_router
     from orchestrator.api.routes.notifications import router as notifications_router
     from orchestrator.api.routes.questions import router as questions_router
+    from orchestrator.api.routes.logs import router as logs_router
     from orchestrator.api.routes.ws import router as ws_router
 
     app.include_router(health_router)
@@ -132,6 +152,7 @@ def create_app(
     app.include_router(review_router)
     app.include_router(notifications_router)
     app.include_router(questions_router)
+    app.include_router(logs_router)
     app.include_router(ws_router)
 
     return app

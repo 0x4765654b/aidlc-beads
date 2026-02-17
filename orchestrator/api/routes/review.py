@@ -68,10 +68,10 @@ async def list_review_gates(
         artifact_path = _extract_artifact_path(issue.notes)
         stage_name = _extract_stage_name(issue.title)
 
-        # Filter by project_key label if requested
+        # Filter by project_key label if requested — skip issues that
+        # don't carry the exact project:<key> label (including unlabelled ones)
         if project_key:
-            project_labels = [l for l in issue.labels if l.startswith("project:")]
-            if project_labels and not any(l == f"project:{project_key}" for l in project_labels):
+            if f"project:{project_key}" not in issue.labels:
                 continue
 
         results.append(
@@ -202,6 +202,21 @@ async def approve_review(
     await ws.broadcast(
         "review_approved", "", {"issue_id": issue_id}
     )
+
+    # Spawn ProjectMinder to advance the pipeline to the next stage
+    try:
+        await engine.spawn_agent(
+            "ProjectMinder",
+            context={
+                "project_key": "",
+                "action": "advance",
+                "approved_review_id": issue_id,
+            },
+            project_key="",
+        )
+        logger.info("ProjectMinder dispatched to advance pipeline after approval of %s", issue_id)
+    except Exception as e:
+        logger.warning("Could not spawn ProjectMinder after approval of %s: %s", issue_id, e)
 
     logger.info("Review approved: %s", issue_id)
     return ReviewResultResponse(

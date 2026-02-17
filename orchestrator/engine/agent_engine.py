@@ -136,7 +136,7 @@ class AgentEngine:
 
         except Exception as e:
             instance.status = "error"
-            logger.error("Agent %s failed: %s", instance.agent_id, e)
+            logger.error("Agent %s failed: %s", instance.agent_id, e, exc_info=True)
             return {"error": str(e)}
 
         finally:

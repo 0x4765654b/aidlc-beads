@@ -82,6 +82,7 @@ def _make_runner(
     agent_type: str,
     bedrock_config: BedrockConfig,
     mail_client: Any | None = None,
+    engine: AgentEngine | None = None,
 ):
     """Create an AgentRunner closure for a given agent type.
 
@@ -92,14 +93,18 @@ def _make_runner(
     async def runner(instance: AgentInstance, context: dict) -> dict:
         from orchestrator.lib.context.dispatch import DispatchMessage
 
+        logger.info("[RUNNER:%s] Creating agent instance", agent_type)
         agent = create_agent(
             agent_type,
             bedrock_config=bedrock_config,
             mail_client=mail_client,
+            engine=engine,
         )
+        logger.info("[RUNNER:%s] Agent created, engine=%s", agent_type, agent._engine is not None)
 
         dispatch = context.get("dispatch")
         if dispatch and isinstance(dispatch, DispatchMessage):
+            logger.info("[RUNNER:%s] Dispatch path — stage=%s", agent_type, dispatch.stage_name)
             completion = await agent.handle_dispatch(dispatch)
             return {
                 "status": completion.status,
@@ -110,10 +115,20 @@ def _make_runner(
         # Simple prompt mode (e.g., for Harmbe chat)
         prompt = context.get("prompt", "")
         if prompt:
+            logger.info("[RUNNER:%s] Prompt path", agent_type)
             response = await agent._invoke_llm(prompt)
             return {"response": response}
 
-        return {"error": "No dispatch or prompt in context"}
+        # Action-based context (e.g., ProjectMinder initialize/advance)
+        action = context.get("action")
+        if action:
+            logger.info("[RUNNER:%s] Action path — action=%s", agent_type, action)
+            result = await agent._execute(context)
+            logger.info("[RUNNER:%s] Action completed — result=%s", agent_type, str(result)[:200])
+            return {"result": result}
+
+        logger.warning("[RUNNER:%s] No dispatch/prompt/action in context: %s", agent_type, list(context.keys()))
+        return {"error": "No dispatch, prompt, or action in context"}
 
     return runner
 
@@ -143,7 +158,7 @@ def wire_engine(
     )
 
     for agent_type in AGENT_CLASSES:
-        runner = _make_runner(agent_type, config, mail_client)
+        runner = _make_runner(agent_type, config, mail_client, engine=engine)
         engine.register_runner(agent_type, runner)
         logger.debug("Registered runner for %s", agent_type)
 

@@ -1,0 +1,120 @@
+{
+  "run_id": "rafiki-2026-02-17T12-15-26",
+  "started_at": "2026-02-17T12:15:26.209602+00:00",
+  "completed_at": "2026-02-17T12:16:08.592547+00:00",
+  "duration_seconds": 42.382945,
+  "project_key": "sci-calc",
+  "outcome": "FAIL",
+  "lifecycle_states": [
+    {
+      "state": "INITIALIZING",
+      "entered_at": "2026-02-17T12:15:26.211736+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "CREATING_PROJECT",
+      "entered_at": "2026-02-17T12:15:27.029724+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "CHATTING",
+      "entered_at": "2026-02-17T12:15:27.717915+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "MONITORING",
+      "entered_at": "2026-02-17T12:15:32.094746+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "STALLED",
+      "entered_at": "2026-02-17T12:15:57.364858+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "FAILED",
+      "entered_at": "2026-02-17T12:16:04.145625+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "VERIFYING",
+      "entered_at": "2026-02-17T12:16:04.145868+00:00",
+      "duration_ms": 0
+    },
+    {
+      "state": "REPORTING",
+      "entered_at": "2026-02-17T12:16:08.592463+00:00",
+      "duration_ms": 0
+    }
+  ],
+  "reviews_handled": [],
+  "questions_answered": [],
+  "chat_interactions": [
+    {
+      "prompt": "What is the current status of the sci-calc project?",
+      "response": "# \ud83e\udd8d Harmbe | sci-calc\n\n**Status: Does not exist.** Same answer as the previous 4 times.\n\nI'm detecting a loop. I'll keep this short:\n\n\ud83d\udc49 **Say \"Go\" to create the project. Otherwise, no status will ever change.** \ud83e\udd8d\n",
+      "at": "2026-02-17T12:15:32.094600+00:00"
+    },
+    {
+      "prompt": "I haven't seen progress in 0 minutes. What's happening with current stage?",
+      "response": "**sci-calc: No project exists. No stage. No progress.** This is an automated loop. Reply with something new to break it. \ud83e\udd8d\n",
+      "at": "2026-02-17T12:16:02.284205+00:00"
+    }
+  ],
+  "stalls_detected": 0,
+  "issues_filed": [],
+  "issues_filed_count": 0,
+  "verification": {
+    "overall": "FAIL",
+    "checks": [
+      {
+        "name": "artifacts_exist",
+        "passed": true,
+        "detail": "38 artifact(s) found",
+        "duration_ms": 8
+      },
+      {
+        "name": "no_open_issues",
+        "passed": false,
+        "detail": "11 open issues",
+        "duration_ms": 2724
+      },
+      {
+        "name": "source_structure",
+        "passed": false,
+        "detail": "Missing: pyproject.toml, src/, tests/",
+        "duration_ms": 1712
+      },
+      {
+        "name": "build",
+        "passed": false,
+        "detail": "Project directory not found",
+        "duration_ms": 0
+      },
+      {
+        "name": "tests",
+        "passed": false,
+        "detail": "Project directory not found",
+        "duration_ms": 0
+      },
+      {
+        "name": "lint",
+        "passed": false,
+        "detail": "Project directory not found",
+        "duration_ms": 0
+      },
+      {
+        "name": "api_starts",
+        "passed": false,
+        "detail": "Project directory not found",
+        "duration_ms": 0
+      },
+      {
+        "name": "endpoints",
+        "passed": false,
+        "detail": "Project directory not found",
+        "duration_ms": 0
+      }
+    ]
+  }
+}

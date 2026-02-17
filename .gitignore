@@ -3,6 +3,9 @@
 .beads/
 !.beads/issues.jsonl
 
+# Gorilla Troop registry (auto-managed by orchestrator)
+.gorilla-troop/
+
 # IDE and editor config (user-specific)
 .claude/
 .vscode/
@@ -23,8 +26,9 @@ node_modules/
 outline/.env
 outline/docker-compose.override.yml
 
-# Infrastructure secrets
+# Infrastructure secrets and binaries
 infra/.env
+infra/bin/
 
 # Python
 __pycache__/

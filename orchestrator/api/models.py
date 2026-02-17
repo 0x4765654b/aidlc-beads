@@ -196,6 +196,22 @@ class AnswerResultResponse(BaseModel):
 # ── System ────────────────────────────────────────────────────────────────
 
 
+# ── Logs ─────────────────────────────────────────────────────────────
+
+
+class LogEntryResponse(BaseModel):
+    """A single log entry from the orchestrator ring buffer."""
+
+    timestamp: str
+    level: str
+    logger_name: str
+    message: str
+    project_key: str | None = None
+
+
+# ── System ────────────────────────────────────────────────────────────
+
+
 class SystemInfoResponse(BaseModel):
     """System information response."""
 

@@ -41,6 +41,7 @@ async def create_project(
     body: CreateProjectRequest,
     registry: ProjectRegistry = Depends(get_registry),
     ws: ConnectionManager = Depends(get_ws_manager),
+    engine: AgentEngine = Depends(get_engine),
 ) -> ProjectResponse:
     """Create a new project."""
     # Validate workspace path exists
@@ -68,6 +69,24 @@ async def create_project(
     await ws.broadcast(
         "project_created", body.key, {"project_key": body.key, "name": body.name}
     )
+
+    # Spawn ProjectMinder to kick off the AIDLC pipeline
+    logger.info("[DISPATCH] Attempting to spawn ProjectMinder for project %s", body.key)
+    logger.info("[DISPATCH] Engine runners registered: %s", list(engine._runners.keys()))
+    try:
+        instance = await engine.spawn_agent(
+            "ProjectMinder",
+            context={
+                "project_key": body.key,
+                "workspace_root": body.workspace_path,
+                "action": "initialize",
+            },
+            project_key=body.key,
+        )
+        registry.update_project(body.key, minder_agent_id=instance.agent_id)
+        logger.info("[DISPATCH] Spawned ProjectMinder %s for project %s", instance.agent_id, body.key)
+    except Exception as e:
+        logger.error("[DISPATCH] FAILED to spawn ProjectMinder for %s: %s", body.key, e, exc_info=True)
 
     logger.info("Created project: %s", body.key)
     return _project_to_response(project)

@@ -12,8 +12,7 @@ services:
       - ../orchestrator:/app/orchestrator
       - ../cli:/app/cli
       - ../tests:/app/tests
-      - beads-data:/workspace/.beads
-      - ${PROJECT_WORKSPACE:-./workspace}:/workspace/projects
+      - ${PROJECT_WORKSPACE:?Set PROJECT_WORKSPACE in .env to your Windows workspace path}:/workspace
 
   dashboard:
     build:

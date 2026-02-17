@@ -13,14 +13,15 @@ services:
       - BEDROCK_REGION=${BEDROCK_REGION:-us-east-1}
       - AGENT_MAIL_URL=http://agent-mail:8765
       - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:9741
-      - GORILLA_WORKSPACE=/workspace
+      - GORILLA_WORKSPACE=${GORILLA_WORKSPACE:-/workspace}
       - DEFAULT_PROJECT_KEY=${DEFAULT_PROJECT_KEY:-aidlc-beads}
       - DEFAULT_PROJECT_NAME=${DEFAULT_PROJECT_NAME:-AIDLC Beads}
-      - DEFAULT_PROJECT_PATH=/workspace/project
+      - DEFAULT_PROJECT_PATH=${DEFAULT_PROJECT_PATH:-/workspace/aidlc-beads}
+      - BEADS_DIR=/workspace/aidlc-beads/.beads
+      - GORILLA_LOG_LEVEL=${GORILLA_LOG_LEVEL:-INFO}
     volumes:
-      - beads-data:/workspace/.beads
-      - ${PROJECT_WORKSPACE:-..}:/workspace/project
-      - ${AWS_CONFIG_DIR:-~/.aws}:/root/.aws:ro
+      - ${PROJECT_WORKSPACE:?Set PROJECT_WORKSPACE in .env to your Windows workspace path}:/workspace
+      - ${AWS_CONFIG_DIR:?Set AWS_CONFIG_DIR in .env to your Windows .aws path}:/root/.aws:ro
     depends_on:
       agent-mail:
         condition: service_healthy
@@ -145,7 +146,6 @@ services:
       - gorilla-net
 
 volumes:
-  beads-data:
   agent-mail-data:
   outline-data:
   postgres-data:

@@ -57,7 +57,6 @@ class TestDockerComposeContent:
         assert "gorilla-net:" in compose
 
     def test_has_named_volumes(self, compose):
-        assert "beads-data:" in compose
         assert "agent-mail-data:" in compose
         assert "postgres-data:" in compose
         assert "redis-data:" in compose
@@ -158,8 +157,8 @@ class TestEnvExample:
         return (INFRA_DIR / ".env.example").read_text(encoding="utf-8")
 
     def test_has_aws_credentials(self, env_content):
-        assert "AWS_ACCESS_KEY_ID" in env_content
-        assert "AWS_SECRET_ACCESS_KEY" in env_content
+        assert "AWS_CONFIG_DIR" in env_content
+        assert "AWS_PROFILE" in env_content
         assert "AWS_DEFAULT_REGION" in env_content
 
     def test_has_port_config(self, env_content):
@@ -175,6 +174,90 @@ class TestEnvExample:
 
     def test_has_project_workspace(self, env_content):
         assert "PROJECT_WORKSPACE" in env_content
+
+
+class TestProjectReadiness:
+    """Verify that the current repo is a valid Harambe project for Docker deployment.
+
+    When the project directory is bind-mounted into the container, the
+    orchestrator needs: a .beads/ workspace with its config files, compose
+    env vars that point GORILLA_WORKSPACE and DEFAULT_PROJECT_PATH at the
+    mount target, no stale beads-data named volume, and .gorilla-troop/
+    excluded from git.
+    """
+
+    REPO_ROOT = Path(__file__).resolve().parents[2]
+
+    @pytest.fixture
+    def compose(self) -> str:
+        return (INFRA_DIR / "docker-compose.yml").read_text(encoding="utf-8")
+
+    # ── .beads/ workspace structure ────────────────────────────────
+
+    def test_beads_dir_exists(self):
+        assert (self.REPO_ROOT / ".beads").is_dir()
+
+    def test_beads_config_yaml_exists(self):
+        assert (self.REPO_ROOT / ".beads" / "config.yaml").is_file()
+
+    def test_beads_metadata_json_exists(self):
+        assert (self.REPO_ROOT / ".beads" / "metadata.json").is_file()
+
+    def test_beads_issues_jsonl_exists(self):
+        assert (self.REPO_ROOT / ".beads" / "issues.jsonl").is_file()
+
+    # ── Compose wiring ─────────────────────────────────────────────
+
+    def test_no_beads_named_volume(self, compose):
+        """beads-data named volume must not exist -- .beads/ comes via bind mount."""
+        assert "beads-data" not in compose
+
+    def test_gorilla_workspace_is_configurable(self, compose):
+        """GORILLA_WORKSPACE is env-driven so it works for multi-project layouts."""
+        assert "GORILLA_WORKSPACE=${GORILLA_WORKSPACE:-/workspace}" in compose
+
+    def test_default_project_path_is_configurable(self, compose):
+        """DEFAULT_PROJECT_PATH is env-driven, defaults to aidlc-beads subdir."""
+        assert "DEFAULT_PROJECT_PATH=${DEFAULT_PROJECT_PATH:-/workspace/aidlc-beads}" in compose
+
+    def test_workspace_mount_uses_env_var(self, compose):
+        """PROJECT_WORKSPACE env var controls the host-side bind mount to /workspace."""
+        assert "PROJECT_WORKSPACE" in compose
+        assert ":/workspace" in compose
+
+    # ── .gorilla-troop/ excluded from git ──────────────────────────
+
+    def test_gorilla_troop_in_gitignore(self):
+        gitignore = (self.REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
+        assert ".gorilla-troop/" in gitignore
+
+    # ── Registry round-trip with real project dir ──────────────────
+
+    def test_registry_can_register_project(self, tmp_path):
+        """ProjectRegistry can register this repo as a project and read it back."""
+        from orchestrator.engine.project_registry import ProjectRegistry
+
+        registry = ProjectRegistry(workspace_root=tmp_path)
+        project = registry.create_project(
+            key="aidlc-beads",
+            name="AIDLC Beads",
+            workspace_path=str(self.REPO_ROOT),
+        )
+        assert project.status == "active"
+        assert project.workspace_path == str(self.REPO_ROOT)
+
+        # Reload from disk to prove persistence
+        registry2 = ProjectRegistry(workspace_root=tmp_path)
+        reloaded = registry2.get_project("aidlc-beads")
+        assert reloaded is not None
+        assert reloaded.name == "AIDLC Beads"
+
+    def test_find_workspace_root_succeeds(self):
+        """find_workspace_root() locates .beads/ from the repo root."""
+        from orchestrator.lib.scribe.workspace import find_workspace_root
+
+        root = find_workspace_root(start=self.REPO_ROOT)
+        assert root == self.REPO_ROOT
 
 
 class TestRequirementsTxt:

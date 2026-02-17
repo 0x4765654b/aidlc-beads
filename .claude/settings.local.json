@@ -33,7 +33,17 @@
       "Bash(PYTHONPATH=. python3 -m pytest:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(bd show:*)",
+      "Bash(bd sync:*)",
+      "Bash(find:*)",
+      "Bash(bd dep add:*)",
+      "Bash(bd dep:*)",
+      "Bash(bd reopen:*)",
+      "Bash(PYTHONPATH=/mnt/c/dev/git-repos/aidlc-beads python3 -m pytest:*)",
+      "Bash(docker compose:*)",
+      "Bash(bd:*)",
+      "Bash(pip3 show:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

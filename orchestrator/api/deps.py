@@ -10,6 +10,7 @@ from fastapi import Request
 from orchestrator.engine.project_registry import ProjectRegistry
 from orchestrator.engine.agent_engine import AgentEngine
 from orchestrator.engine.notification_manager import NotificationManager
+from orchestrator.engine.log_buffer import LogBuffer
 
 logger = logging.getLogger("api.deps")
 
@@ -36,6 +37,11 @@ def get_notifications(request: Request) -> NotificationManager:
 def get_ws_manager(request: Request):
     """Get the shared ConnectionManager from app state."""
     return request.app.state.ws_manager
+
+
+def get_log_buffer(request: Request) -> LogBuffer:
+    """Get the shared LogBuffer from app state."""
+    return request.app.state.log_buffer
 
 
 def get_beads_client():
