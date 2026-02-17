@@ -293,17 +293,21 @@ class ProjectMinder(BaseAgent):
             logger.info("[ADVANCE] No stages ready — pipeline stalled")
             return "No stages ready. Waiting on review gates or Q&A."
 
-        # Pick the highest-priority ready stage
-        next_issue = ready_issues[0]
-        stage_name = self._extract_stage_name(next_issue)
-
-        if not stage_name:
-            logger.warning(
-                "Could not determine stage name for issue %s: %s",
-                next_issue.id,
-                next_issue.title,
+        # Pick the highest-priority ready stage (skip epics/non-stage issues)
+        next_issue = None
+        stage_name = ""
+        for candidate in ready_issues:
+            stage_name = self._extract_stage_name(candidate)
+            if stage_name:
+                next_issue = candidate
+                break
+            logger.debug(
+                "Skipping non-stage issue %s: %s", candidate.id, candidate.title
             )
-            return f"Could not determine stage for issue {next_issue.id}"
+
+        if not next_issue:
+            logger.info("[ADVANCE] No actionable stages in %d ready issues", len(ready_issues))
+            return "No actionable stages ready. Waiting on dependencies."
 
         # Find the right chimp
         chimp_type = STAGE_TO_CHIMP.get(stage_name)

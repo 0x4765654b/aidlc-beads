@@ -17,6 +17,7 @@ async def run_cleanup(
     http_clients: list,      # list of BaseClient instances to close
     workspace_root: Path,
     generated_source_dir: Path | None = None,
+    project_workspace_dir: Path | None = None,
     artifact_paths: list[str] | None = None,
     run_id: str = "",
     skip_cleanup: bool = False,
@@ -47,6 +48,7 @@ async def run_cleanup(
                 http_clients=http_clients,
                 workspace_root=workspace_root,
                 generated_source_dir=generated_source_dir,
+                project_workspace_dir=project_workspace_dir,
                 artifact_paths=artifact_paths,
                 run_id=run_id,
                 preserve_artifacts=preserve_artifacts,
@@ -76,6 +78,7 @@ async def _do_cleanup(
     http_clients: list,
     workspace_root: Path,
     generated_source_dir: Path | None,
+    project_workspace_dir: Path | None,
     artifact_paths: list[str] | None,
     run_id: str,
     preserve_artifacts: bool,
@@ -119,6 +122,19 @@ async def _do_cleanup(
         else:
             steps.append(f"SKIPPED source removal: {generated_source_dir} outside workspace")
             logger.warning("Refusing to delete %s -- outside workspace root", generated_source_dir)
+
+    # 3b. Remove workspace scaffolding (.beads/, aidlc-docs/) created by initialize_workspace()
+    if project_workspace_dir and project_workspace_dir.is_dir():
+        for scaffold_name in (".beads", "aidlc-docs"):
+            scaffold_dir = project_workspace_dir / scaffold_name
+            if scaffold_dir.is_dir() and _is_safe_path(scaffold_dir, workspace_root):
+                try:
+                    shutil.rmtree(scaffold_dir)
+                    steps.append(f"Removed workspace scaffold: {scaffold_dir}")
+                    logger.info("Removed workspace scaffold: %s", scaffold_dir)
+                except Exception as exc:
+                    steps.append(f"Scaffold removal failed ({scaffold_name}): {exc}")
+                    logger.warning("Failed to remove %s: %s", scaffold_dir, exc)
 
     # 4. Remove AIDLC artifacts
     if not preserve_artifacts and artifact_paths:

@@ -133,6 +133,8 @@ def create_issue(
 def show_issue(issue_id: str) -> BeadsIssue:
     """Get full details of a single issue."""
     data = _run_bd("show", issue_id, json_output=True)
+    if isinstance(data, list) and data:
+        data = data[0]
     if isinstance(data, dict):
         return _parse_issue(data)
     raise ValueError(f"Unexpected bd show output for {issue_id}: {type(data)}")

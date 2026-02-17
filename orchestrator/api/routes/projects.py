@@ -44,22 +44,28 @@ async def create_project(
     engine: AgentEngine = Depends(get_engine),
 ) -> ProjectResponse:
     """Create a new project."""
-    # Validate workspace path exists
+    # Reject path traversal (string check -- no filesystem access needed)
     workspace = Path(body.workspace_path)
-    if not workspace.is_dir():
-        raise HTTPException(
-            status_code=400,
-            detail=f"Workspace path does not exist or is not a directory: {body.workspace_path}",
-        )
+    if ".." in str(body.workspace_path):
+        raise HTTPException(status_code=400, detail="Path traversal not allowed")
 
-    # Reject path traversal
+    # Create and scaffold the workspace if it doesn't exist yet.
+    if not workspace.is_dir():
+        from orchestrator.engine.workspace_init import initialize_workspace
+        try:
+            initialize_workspace(workspace, body.key)
+            logger.info("[INIT] Created and initialized workspace: %s", workspace)
+        except Exception as e:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Could not create workspace at {body.workspace_path}: {e}",
+            )
+
+    # Validate the resolved path after creation
     try:
         workspace.resolve(strict=True)
     except (OSError, ValueError):
         raise HTTPException(status_code=400, detail="Invalid workspace path")
-
-    if ".." in str(body.workspace_path):
-        raise HTTPException(status_code=400, detail="Path traversal not allowed")
 
     try:
         project = registry.create_project(body.key, body.name, body.workspace_path)

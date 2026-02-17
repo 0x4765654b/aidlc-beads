@@ -72,7 +72,22 @@ def create_app(
             if cfg.default_project_key and cfg.default_project_path:
                 registry = app.state.registry
                 if registry.get_project(cfg.default_project_key) is None:
-                    if Path(cfg.default_project_path).is_dir():
+                    workspace = Path(cfg.default_project_path)
+                    if not workspace.is_dir():
+                        from orchestrator.engine.workspace_init import initialize_workspace
+                        try:
+                            initialize_workspace(workspace, cfg.default_project_key)
+                            logger.info(
+                                "[INIT] Created and initialized default workspace: %s",
+                                workspace,
+                            )
+                        except Exception as e:
+                            logger.warning(
+                                "Could not create default workspace at %s: %s",
+                                cfg.default_project_path,
+                                e,
+                            )
+                    if workspace.is_dir():
                         registry.create_project(
                             key=cfg.default_project_key,
                             name=cfg.default_project_name or cfg.default_project_key,
@@ -81,11 +96,6 @@ def create_app(
                         logger.info(
                             "Auto-registered default project: %s at %s",
                             cfg.default_project_key,
-                            cfg.default_project_path,
-                        )
-                    else:
-                        logger.warning(
-                            "Default project path does not exist: %s",
                             cfg.default_project_path,
                         )
                 else:

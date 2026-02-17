@@ -397,6 +397,9 @@ class LifecycleController:
                 workspace_root=self.workspace_root,
                 generated_source_dir=self.workspace_root
                 / self.config.project_key,
+                project_workspace_dir=self.config.resolve_workspace(
+                    self.workspace_root
+                ),
                 artifact_paths=self.state.artifact_paths_seen,
                 run_id=self.run_id,
                 skip_cleanup=self.config.skip_cleanup,
