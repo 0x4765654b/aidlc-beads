@@ -176,13 +176,13 @@ class RafikiConfig:
             2. Fallback: ``repo_root / "rafiki-project"``
 
         When ``project_workspace`` comes from the infra ``.env`` file it
-        points to the volume-mount source (e.g.
+        points to the volume-mount root (e.g.
         ``C:/dev/git-repos/aidlc-beads/workspace``).  The project-specific
-        workspace is a subdirectory named after the project key.
+        workspace is a subdirectory named after the project key
+        (e.g. ``workspace/sci-calc``).
         """
-        if self.project_workspace:
-            return Path(self.project_workspace)
-        return repo_root / "rafiki-project"
+        base = Path(self.project_workspace) if self.project_workspace else repo_root / "rafiki-project"
+        return base / self.project_key
 
     def resolve_docker_workspace(self, local_path: Path) -> str:
         """Translate a local host path to the Docker-internal path.
@@ -193,10 +193,24 @@ class RafikiConfig:
         if not self.host_workspace_root:
             return str(local_path)
         local_str = str(local_path.resolve()).replace("\\", "/")
-        host_str = self.host_workspace_root.replace("\\", "/")
+        host_str = self.host_workspace_root.replace("\\", "/").rstrip("/")
+        docker_root = self.docker_workspace_root.rstrip("/")
         if local_str.startswith(host_str):
             relative = local_str[len(host_str):].lstrip("/")
             if relative:
-                return f"{self.docker_workspace_root.rstrip('/')}/{relative}"
-            return self.docker_workspace_root.rstrip("/")
+                result = f"{docker_root}/{relative}"
+            else:
+                result = docker_root
+            # Warn if the result looks like it has redundant nesting
+            # e.g. /workspace/aidlc-beads/workspace/sci-calc
+            if f"{docker_root}/" in result[len(docker_root) + 1:]:
+                logger.warning(
+                    "Docker path looks nested: %s (host_workspace_root=%s may be too broad)",
+                    result, host_str,
+                )
+            return result
+        logger.warning(
+            "Local path %s does not start with host_workspace_root %s -- returning as-is",
+            local_str, host_str,
+        )
         return str(local_path)

@@ -2,23 +2,38 @@
 
 All functions shell out to `bd` and parse JSON output.
 No LLM dependency -- pure subprocess calls.
+
+Every public function accepts an optional ``workspace`` keyword argument.
+When provided, it is passed as ``cwd`` to ``subprocess.run`` so that
+``bd`` discovers the correct per-project ``.beads/`` directory.
 """
 
 from __future__ import annotations
 
 import json
+import logging
 import subprocess
+from pathlib import Path
 from typing import Any
 
 from orchestrator.lib.beads.models import BeadsIssue
 
+logger = logging.getLogger("lib.beads.client")
 
-def _run_bd(*args: str, json_output: bool = False) -> str | Any:
+
+def _run_bd(
+    *args: str,
+    json_output: bool = False,
+    workspace: str | Path | None = None,
+) -> str | Any:
     """Run a bd CLI command and return output.
 
     Args:
         *args: CLI arguments after 'bd'.
         json_output: If True, append --json and parse the result.
+        workspace: Working directory for the bd process.  When set,
+            ``bd`` will discover the ``.beads/`` database relative to
+            this path instead of relying on the ``BEADS_DIR`` env var.
 
     Returns:
         Parsed JSON (dict or list) if json_output, else raw stdout string.
@@ -32,12 +47,15 @@ def _run_bd(*args: str, json_output: bool = False) -> str | Any:
     if json_output:
         cmd.append("--json")
 
+    cwd = str(workspace) if workspace else None
+
     try:
         result = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
             check=True,
+            cwd=cwd,
         )
     except FileNotFoundError:
         raise RuntimeError(
@@ -92,6 +110,7 @@ def create_issue(
     notes: str | None = None,
     acceptance: str | None = None,
     thread: str | None = None,
+    workspace: str | Path | None = None,
 ) -> BeadsIssue:
     """Create a Beads issue.
 
@@ -114,25 +133,25 @@ def create_issue(
 
     # bd create doesn't have --json output that returns the issue,
     # so we parse the text output to get the ID, then show it.
-    output = _run_bd(*args)
+    output = _run_bd(*args, workspace=workspace)
 
     # Parse "Created issue: gt-17" from output
     import re
     match = re.search(r"Created issue:\s*(\S+)", output)
     if match:
-        return show_issue(match.group(1))
+        return show_issue(match.group(1), workspace=workspace)
 
     # Fallback: try to extract any ID pattern
     match = re.search(r"([\w]+-\d+)", output)
     if match:
-        return show_issue(match.group(1))
+        return show_issue(match.group(1), workspace=workspace)
 
     raise ValueError(f"Could not parse issue ID from bd create output: {output[:300]}")
 
 
-def show_issue(issue_id: str) -> BeadsIssue:
+def show_issue(issue_id: str, *, workspace: str | Path | None = None) -> BeadsIssue:
     """Get full details of a single issue."""
-    data = _run_bd("show", issue_id, json_output=True)
+    data = _run_bd("show", issue_id, json_output=True, workspace=workspace)
     if isinstance(data, list) and data:
         data = data[0]
     if isinstance(data, dict):
@@ -140,7 +159,7 @@ def show_issue(issue_id: str) -> BeadsIssue:
     raise ValueError(f"Unexpected bd show output for {issue_id}: {type(data)}")
 
 
-def update_issue(issue_id: str, **kwargs: Any) -> None:
+def update_issue(issue_id: str, *, workspace: str | Path | None = None, **kwargs: Any) -> None:
     """Update issue fields.
 
     Supported kwargs:
@@ -166,23 +185,23 @@ def update_issue(issue_id: str, **kwargs: Any) -> None:
     if "remove_label" in kwargs:
         args.extend(["--remove-label", kwargs["remove_label"]])
 
-    _run_bd(*args)
+    _run_bd(*args, workspace=workspace)
 
 
-def close_issue(issue_id: str, reason: str | None = None) -> None:
+def close_issue(issue_id: str, reason: str | None = None, *, workspace: str | Path | None = None) -> None:
     """Close an issue."""
     args = ["close", issue_id]
     if reason:
         args.extend(["--reason", reason])
-    _run_bd(*args)
+    _run_bd(*args, workspace=workspace)
 
 
-def reopen_issue(issue_id: str, reason: str | None = None) -> None:
+def reopen_issue(issue_id: str, reason: str | None = None, *, workspace: str | Path | None = None) -> None:
     """Reopen a closed issue."""
     args = ["reopen", issue_id]
     if reason:
         args.extend(["--reason", reason])
-    _run_bd(*args)
+    _run_bd(*args, workspace=workspace)
 
 
 # ---------------------------------------------------------------------------
@@ -190,7 +209,7 @@ def reopen_issue(issue_id: str, reason: str | None = None) -> None:
 # ---------------------------------------------------------------------------
 
 
-def list_issues(**filters: Any) -> list[BeadsIssue]:
+def list_issues(*, workspace: str | Path | None = None, **filters: Any) -> list[BeadsIssue]:
     """List issues with filters.
 
     Supported filters:
@@ -220,11 +239,11 @@ def list_issues(**filters: Any) -> list[BeadsIssue]:
     if filters.get("no_assignee"):
         args.append("--no-assignee")
 
-    data = _run_bd(*args, json_output=True)
+    data = _run_bd(*args, json_output=True, workspace=workspace)
     return _parse_issues(data)
 
 
-def ready(*, assignee: str | None = None, unassigned: bool = False) -> list[BeadsIssue]:
+def ready(*, assignee: str | None = None, unassigned: bool = False, workspace: str | Path | None = None) -> list[BeadsIssue]:
     """Get ready (unblocked, open) work."""
     args = ["ready"]
     if assignee:
@@ -232,19 +251,19 @@ def ready(*, assignee: str | None = None, unassigned: bool = False) -> list[Bead
     if unassigned:
         args.append("--unassigned")
 
-    data = _run_bd(*args, json_output=True)
+    data = _run_bd(*args, json_output=True, workspace=workspace)
     return _parse_issues(data)
 
 
-def blocked() -> list[BeadsIssue]:
+def blocked(*, workspace: str | Path | None = None) -> list[BeadsIssue]:
     """Get blocked issues."""
-    data = _run_bd("blocked", json_output=True)
+    data = _run_bd("blocked", json_output=True, workspace=workspace)
     return _parse_issues(data)
 
 
-def search(query: str) -> list[BeadsIssue]:
+def search(query: str, *, workspace: str | Path | None = None) -> list[BeadsIssue]:
     """Search issues by text."""
-    data = _run_bd("search", query, json_output=True)
+    data = _run_bd("search", query, json_output=True, workspace=workspace)
     return _parse_issues(data)
 
 
@@ -254,18 +273,19 @@ def search(query: str) -> list[BeadsIssue]:
 
 
 def add_dependency(
-    blocked_id: str, blocker_id: str, dep_type: str = "blocks"
+    blocked_id: str, blocker_id: str, dep_type: str = "blocks",
+    *, workspace: str | Path | None = None,
 ) -> None:
     """Add a dependency: blocker blocks blocked."""
     args = ["dep", "add", blocked_id, blocker_id]
     if dep_type != "blocks":
         args.extend(["--type", dep_type])
-    _run_bd(*args)
+    _run_bd(*args, workspace=workspace)
 
 
-def remove_dependency(issue_id: str, depends_on_id: str) -> None:
+def remove_dependency(issue_id: str, depends_on_id: str, *, workspace: str | Path | None = None) -> None:
     """Remove a dependency."""
-    _run_bd("dep", "remove", issue_id, depends_on_id)
+    _run_bd("dep", "remove", issue_id, depends_on_id, workspace=workspace)
 
 
 # ---------------------------------------------------------------------------
@@ -273,7 +293,7 @@ def remove_dependency(issue_id: str, depends_on_id: str) -> None:
 # ---------------------------------------------------------------------------
 
 
-def sync(*, force: bool = False, full: bool = False, import_mode: bool = False) -> None:
+def sync(*, force: bool = False, full: bool = False, import_mode: bool = False, workspace: str | Path | None = None) -> None:
     """Sync the Beads database."""
     args = ["sync"]
     if force:
@@ -282,4 +302,4 @@ def sync(*, force: bool = False, full: bool = False, import_mode: bool = False) 
         args.append("--full")
     if import_mode:
         args.append("--import")
-    _run_bd(*args)
+    _run_bd(*args, workspace=workspace)

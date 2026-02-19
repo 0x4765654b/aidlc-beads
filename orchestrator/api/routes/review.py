@@ -8,7 +8,14 @@ from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from orchestrator.api.deps import get_ws_manager, get_beads_client, get_mail_client, get_engine
+from orchestrator.api.deps import (
+    get_ws_manager,
+    get_beads_client,
+    get_mail_client,
+    get_engine,
+    get_registry,
+    resolve_project_workspace,
+)
 from orchestrator.api.models import (
     ReviewGateResponse,
     ReviewDetailResponse,
@@ -17,6 +24,7 @@ from orchestrator.api.models import (
 )
 from orchestrator.api.websocket import ConnectionManager
 from orchestrator.engine.agent_engine import AgentEngine
+from orchestrator.engine.project_registry import ProjectRegistry
 
 logger = logging.getLogger("api.review")
 
@@ -45,6 +53,7 @@ def _extract_stage_name(title: str) -> str:
 @router.get("/", response_model=list[ReviewGateResponse])
 async def list_review_gates(
     project_key: str | None = None,
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> list[ReviewGateResponse]:
     """List pending review gates.
 
@@ -57,8 +66,10 @@ async def list_review_gates(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    ws = resolve_project_workspace(registry, project_key)
+
     try:
-        issues = beads.list_issues(label="type:review-gate", status="open")
+        issues = beads.list_issues(workspace=ws, label="type:review-gate", status="open")
     except Exception as e:
         logger.error("Failed to list review gates: %s", e)
         raise HTTPException(status_code=502, detail=f"Beads query failed: {e}")
@@ -92,6 +103,8 @@ async def list_review_gates(
 @router.get("/{issue_id}", response_model=ReviewDetailResponse)
 async def get_review_detail(
     issue_id: str,
+    project_key: str | None = None,
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> ReviewDetailResponse:
     """Get full review gate details including artifact content.
 
@@ -104,8 +117,10 @@ async def get_review_detail(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    ws = resolve_project_workspace(registry, project_key)
+
     try:
-        issue = beads.show_issue(issue_id)
+        issue = beads.show_issue(issue_id, workspace=ws)
     except Exception as e:
         logger.error("Failed to show issue %s: %s", issue_id, e)
         raise HTTPException(status_code=404, detail=f"Issue '{issue_id}' not found: {e}")
@@ -144,8 +159,10 @@ async def get_review_detail(
 async def approve_review(
     issue_id: str,
     body: ReviewDecision,
+    project_key: str | None = None,
     ws: ConnectionManager = Depends(get_ws_manager),
     engine: AgentEngine = Depends(get_engine),
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> ReviewResultResponse:
     """Approve a review gate.
 
@@ -161,10 +178,12 @@ async def approve_review(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    proj_ws = resolve_project_workspace(registry, project_key)
+
     # Update issue status to done
     try:
         notes = f"APPROVED. Feedback: {body.feedback}" if body.feedback else "APPROVED."
-        beads.update_issue(issue_id, status="done", append_notes=notes)
+        beads.update_issue(issue_id, workspace=proj_ws, status="done", append_notes=notes)
     except Exception as e:
         logger.error("Failed to approve review %s: %s", issue_id, e)
         raise HTTPException(status_code=502, detail=f"Beads update failed: {e}")
@@ -172,12 +191,10 @@ async def approve_review(
     # Write edited content back to artifact if provided
     if body.edited_content:
         try:
-            issue = beads.show_issue(issue_id)
+            issue = beads.show_issue(issue_id, workspace=proj_ws)
             artifact_path = _extract_artifact_path(issue.notes)
-            if artifact_path:
-                from orchestrator.lib.scribe.workspace import find_workspace_root
-                workspace_root = find_workspace_root()
-                full_path = Path(workspace_root) / artifact_path
+            if artifact_path and proj_ws:
+                full_path = Path(proj_ws) / artifact_path
                 if full_path.exists():
                     full_path.write_text(body.edited_content, encoding="utf-8")
                     logger.info("Updated artifact content at %s", artifact_path)
@@ -208,11 +225,12 @@ async def approve_review(
         await engine.spawn_agent(
             "ProjectMinder",
             context={
-                "project_key": "",
+                "project_key": project_key or "",
+                "workspace_root": proj_ws or "",
                 "action": "advance",
                 "approved_review_id": issue_id,
             },
-            project_key="",
+            project_key=project_key or "",
         )
         logger.info("ProjectMinder dispatched to advance pipeline after approval of %s", issue_id)
     except Exception as e:
@@ -231,8 +249,10 @@ async def approve_review(
 async def reject_review(
     issue_id: str,
     body: ReviewDecision,
+    project_key: str | None = None,
     ws: ConnectionManager = Depends(get_ws_manager),
     engine: AgentEngine = Depends(get_engine),
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> ReviewResultResponse:
     """Reject a review gate (request changes).
 
@@ -247,10 +267,13 @@ async def reject_review(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    proj_ws = resolve_project_workspace(registry, project_key)
+
     # Add rejection feedback to the issue
     try:
         beads.update_issue(
             issue_id,
+            workspace=proj_ws,
             append_notes=f"REJECTED: {body.feedback}",
         )
     except Exception as e:
@@ -260,7 +283,7 @@ async def reject_review(
     # Read the issue to get artifact info for Gibbon
     artifact_path = None
     try:
-        issue = beads.show_issue(issue_id)
+        issue = beads.show_issue(issue_id, workspace=proj_ws)
         artifact_path = _extract_artifact_path(issue.notes)
     except Exception as e:
         logger.warning("Could not read issue for Gibbon context: %s", e)

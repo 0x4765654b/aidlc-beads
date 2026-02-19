@@ -88,7 +88,7 @@ class CuriousGeorge(BaseAgent):
             evidence_parts.append(f"## Context Load Error\n{exc}")
 
         # 2b. Check Beads issue state
-        beads_state = await _safe_show_issue(affected_issue_id)
+        beads_state = await _safe_show_issue(affected_issue_id, workspace=dispatch.workspace_root or None)
         if beads_state:
             evidence_parts.append(
                 f"## Beads Issue State\n"
@@ -239,12 +239,12 @@ def _parse_error_context(dispatch: DispatchMessage) -> dict:
         return {"error_message": dispatch.instructions}
 
 
-async def _safe_show_issue(issue_id: str):
+async def _safe_show_issue(issue_id: str, workspace: str | None = None):
     """Attempt to retrieve a Beads issue, returning None on failure."""
     if not issue_id:
         return None
     try:
-        return show_issue(issue_id)
+        return show_issue(issue_id, workspace=workspace)
     except Exception as exc:
         logger.debug("[CuriousGeorge] Could not fetch issue %s: %s", issue_id, exc)
         return None

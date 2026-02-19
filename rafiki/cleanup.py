@@ -123,7 +123,12 @@ async def _do_cleanup(
             steps.append(f"SKIPPED source removal: {generated_source_dir} outside workspace")
             logger.warning("Refusing to delete %s -- outside workspace root", generated_source_dir)
 
-    # 3b. Remove workspace scaffolding (.beads/, aidlc-docs/) created by initialize_workspace()
+    # 4. Close pipeline Beads issues BEFORE removing .beads/ (bd needs it)
+    # bd must run from the project workspace where .beads/ lives
+    beads_cwd = project_workspace_dir if project_workspace_dir else workspace_root
+    await _close_pipeline_issues(beads_cwd, run_id, project_key, steps)
+
+    # 5. Remove workspace scaffolding (.beads/, aidlc-docs/) created by initialize_workspace()
     if project_workspace_dir and project_workspace_dir.is_dir():
         for scaffold_name in (".beads", "aidlc-docs"):
             scaffold_dir = project_workspace_dir / scaffold_name
@@ -136,7 +141,7 @@ async def _do_cleanup(
                     steps.append(f"Scaffold removal failed ({scaffold_name}): {exc}")
                     logger.warning("Failed to remove %s: %s", scaffold_dir, exc)
 
-    # 4. Remove AIDLC artifacts
+    # 6. Remove AIDLC artifacts
     if not preserve_artifacts and artifact_paths:
         removed = 0
         for rel_path in artifact_paths:
@@ -155,14 +160,11 @@ async def _do_cleanup(
     elif preserve_artifacts:
         steps.append("Preserved AIDLC artifacts (--preserve-artifacts)")
 
-    # 5. Close pipeline Beads issues (not Rafiki-filed issues)
-    await _close_pipeline_issues(workspace_root, run_id, steps)
-
-    # 6. Persist final state and report
+    # 7. Persist final state and report
     _persist_json(state_data, state_file, steps, "state")
     _persist_json(report_data, report_file, steps, "report")
 
-    # 7. Close HTTP clients
+    # 8. Close HTTP clients
     for client in http_clients:
         try:
             await client.close()
@@ -181,56 +183,83 @@ def _is_safe_path(target: Path, workspace_root: Path) -> bool:
         return False
 
 
-async def _close_pipeline_issues(workspace_root: Path, run_id: str, steps: list[str]) -> None:
+async def _close_pipeline_issues(
+    beads_cwd: Path, run_id: str, project_key: str, steps: list[str]
+) -> None:
     """Close Beads issues created by the simulated pipeline (not by Rafiki itself).
 
-    Only closes issues that were tagged with this run's label by the AIDLC
-    pipeline. Issues filed by Rafiki (discovered-by:rafiki) are preserved
-    because they represent real findings to fix.
+    Closes issues from two scopes:
+    1. Issues tagged with ``rafiki-run:{run_id}`` (run-scoped)
+    2. Issues tagged with ``project:{project_key}`` (project-scoped — created
+       by the AIDLC pipeline inside the container, which never gets the run label)
 
-    If no run_id-scoped issues exist, skips closing entirely to avoid
-    accidentally closing unrelated project issues.
+    Issues filed by Rafiki (``discovered-by:rafiki``) are preserved because they
+    represent real findings to fix.
+
+    Args:
+        beads_cwd: Directory containing ``.beads/`` — typically the project workspace.
+        run_id: Rafiki run identifier for run-scoped issue lookup.
+        project_key: Project key for project-scoped issue lookup.
+        steps: Accumulator for cleanup step descriptions.
     """
-    if not run_id:
-        steps.append("No run_id -- skipping pipeline issue cleanup")
-        return
-
     from rafiki.issues import _run_bd
     import json
 
-    # Only close issues that belong to this specific Rafiki run AND were
-    # created by the pipeline (not by Rafiki itself).
-    # Safety: list issues with the run label, then filter out Rafiki-filed ones.
-    result = await _run_bd(
-        ["list", "--status", "open", "--label", f"rafiki-run:{run_id}", "--json"],
-        cwd=workspace_root,
-    )
-    if not result:
-        steps.append("No pipeline issues from this run to close")
+    # Verify .beads/ exists — bd will fail without it
+    if not (beads_cwd / ".beads").is_dir():
+        steps.append(f"No .beads/ at {beads_cwd} -- skipping pipeline issue cleanup")
+        logger.warning("No .beads/ directory at %s -- cannot close pipeline issues", beads_cwd)
         return
 
-    try:
-        issues = json.loads(result)
-        if isinstance(issues, dict):
-            issues = issues.get("issues", [])
-    except json.JSONDecodeError:
-        steps.append("Could not parse issue list for cleanup")
+    queries: list[tuple[str, list[str]]] = []
+    if run_id:
+        queries.append((
+            f"rafiki-run:{run_id}",
+            ["list", "--status", "open", "--label", f"rafiki-run:{run_id}", "--json"],
+        ))
+    if project_key:
+        queries.append((
+            f"project:{project_key}",
+            ["list", "--status", "open", "--label", f"project:{project_key}", "--json"],
+        ))
+
+    if not queries:
+        steps.append("No run_id or project_key -- skipping pipeline issue cleanup")
+        return
+
+    # Collect unique issues from both queries (avoid closing the same issue twice)
+    all_issues: dict[str, dict] = {}
+    for label_desc, cmd in queries:
+        result = await _run_bd(cmd, cwd=beads_cwd)
+        if not result:
+            continue
+        try:
+            issues = json.loads(result)
+            if isinstance(issues, dict):
+                issues = issues.get("issues", [])
+        except json.JSONDecodeError:
+            logger.warning("Could not parse issue list for label %s", label_desc)
+            continue
+        for issue in issues:
+            issue_id = issue.get("id", "")
+            if issue_id and issue_id not in all_issues:
+                all_issues[issue_id] = issue
+
+    if not all_issues:
+        steps.append("No pipeline issues to close")
         return
 
     closed_count = 0
     preserved_count = 0
-    for issue in issues:
+    for issue_id, issue in all_issues.items():
         labels = issue.get("labels", [])
-        issue_id = issue.get("id", "")
-        if not issue_id:
-            continue
         # Preserve issues filed by Rafiki -- those are real findings
         if "discovered-by:rafiki" in labels:
             preserved_count += 1
             continue
         await _run_bd(
             ["close", issue_id, "--reason", "Closed by Rafiki cleanup -- simulation complete."],
-            cwd=workspace_root,
+            cwd=beads_cwd,
         )
         closed_count += 1
 

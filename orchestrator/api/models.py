@@ -212,6 +212,33 @@ class LogEntryResponse(BaseModel):
 # ── System ────────────────────────────────────────────────────────────
 
 
+# ── Files ────────────────────────────────────────────────────────────
+
+
+class WriteFileRequest(BaseModel):
+    """Request body for writing a file to a project workspace."""
+
+    path: str = Field(..., min_length=1, max_length=500)
+    content: str = Field(..., max_length=500_000)
+
+
+class FileResponse(BaseModel):
+    """Response after writing a file."""
+
+    project_key: str
+    path: str
+    size_bytes: int
+    written_at: str
+
+
+class FileContentResponse(BaseModel):
+    """Response for reading a file."""
+
+    path: str
+    content: str
+    size_bytes: int
+
+
 class SystemInfoResponse(BaseModel):
     """System information response."""
 

@@ -83,7 +83,7 @@ class BonoboAgent(BaseAgent):
         root = Path(workspace_root) if workspace_root else None
         self._file_guard = FileGuard(self._audit_log, workspace_root=root)
         self._git_guard = GitGuard(self._audit_log, workspace_root=root)
-        self._beads_guard = BeadsGuard(self._audit_log)
+        self._beads_guard = BeadsGuard(self._audit_log, workspace=workspace_root)
 
     async def _execute(self, dispatch: DispatchMessage) -> CompletionMessage:
         """Validate and execute a privileged write operation."""
@@ -139,7 +139,10 @@ class BonoboAgent(BaseAgent):
             elif guard_type == "git":
                 result = self._handle_git_op(operation, request, requesting_agent)
             elif guard_type == "beads":
-                result = self._handle_beads_op(operation, request, requesting_agent)
+                result = self._handle_beads_op(
+                    operation, request, requesting_agent,
+                    workspace=dispatch.workspace_root or None,
+                )
             else:
                 result = {"error": f"Unknown guard type: {guard_type}"}
         except PermissionError as exc:
@@ -306,7 +309,7 @@ class BonoboAgent(BaseAgent):
     # ------------------------------------------------------------------
 
     def _handle_beads_op(
-        self, operation: str, request: dict, agent: str
+        self, operation: str, request: dict, agent: str, workspace: str | None = None
     ) -> dict:
         """Execute a BeadsGuard operation."""
         assert self._beads_guard is not None
@@ -357,7 +360,7 @@ class BonoboAgent(BaseAgent):
                 )
             from orchestrator.lib.beads.client import add_dependency
 
-            add_dependency(blocked_id, blocker_id, dep_type)
+            add_dependency(blocked_id, blocker_id, dep_type, workspace=workspace)
             return {
                 "summary": (
                     f"Dependency added: {blocker_id} blocks {blocked_id}"

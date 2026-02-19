@@ -62,6 +62,24 @@ def get_beads_client():
     return _beads_client_module
 
 
+def resolve_project_workspace(
+    registry: ProjectRegistry,
+    project_key: str | None,
+) -> str | None:
+    """Look up the workspace path for a project via the registry.
+
+    Returns the workspace path string, or ``None`` if the project key
+    is not provided or the project is not found in the registry.
+    """
+    if not project_key:
+        return None
+    project = registry.get_project(project_key)
+    if project:
+        return project.workspace_path
+    logger.debug("Project '%s' not found in registry — workspace unknown", project_key)
+    return None
+
+
 def get_mail_client():
     """Get the shared Agent Mail client.
 

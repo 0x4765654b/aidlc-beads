@@ -18,7 +18,6 @@ services:
       - DEFAULT_PROJECT_KEY=${DEFAULT_PROJECT_KEY:-aidlc-beads}
       - DEFAULT_PROJECT_NAME=${DEFAULT_PROJECT_NAME:-AIDLC Beads}
       - DEFAULT_PROJECT_PATH=${DEFAULT_PROJECT_PATH:-/workspace/aidlc-beads}
-      - BEADS_DIR=/workspace/aidlc-beads/.beads
       - GORILLA_LOG_LEVEL=${GORILLA_LOG_LEVEL:-INFO}
     volumes:
       - ${PROJECT_WORKSPACE:?Set PROJECT_WORKSPACE in .env to your Windows workspace path}:/workspace

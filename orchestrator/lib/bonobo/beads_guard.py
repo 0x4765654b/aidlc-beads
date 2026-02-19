@@ -42,8 +42,9 @@ class BeadsGuard:
     All Beads mutations by agents flow through this guard.
     """
 
-    def __init__(self, audit: AuditLog) -> None:
+    def __init__(self, audit: AuditLog, workspace: str | None = None) -> None:
         self._audit = audit
+        self._workspace = workspace
 
     def validate_create(
         self,
@@ -112,7 +113,7 @@ class BeadsGuard:
         """
         # Issue must exist
         try:
-            issue = show_issue(issue_id)
+            issue = show_issue(issue_id, workspace=self._workspace)
         except (subprocess.CalledProcessError, ValueError):
             return ValidationResult(False, f"Issue {issue_id} not found")
 
@@ -169,17 +170,19 @@ class BeadsGuard:
         # Both issues must exist
         for issue_id in (blocked_id, blocker_id):
             try:
-                show_issue(issue_id)
+                show_issue(issue_id, workspace=self._workspace)
             except (subprocess.CalledProcessError, ValueError):
                 return ValidationResult(False, f"Issue {issue_id} not found")
 
         # Cycle detection (SEC-07)
+        cwd = str(self._workspace) if self._workspace else None
         try:
             result = subprocess.run(
                 ["bd", "dep", "cycles"],
                 capture_output=True,
                 text=True,
                 check=False,
+                cwd=cwd,
             )
             if "cycle" in result.stdout.lower():
                 # There are already cycles -- warn but don't block
@@ -214,7 +217,7 @@ class BeadsGuard:
             self._audit.log_denied("beads", "create_issue", agent, result.reason, details)
             raise PermissionError(f"BeadsGuard denied create: {result.reason}")
 
-        issue = create_issue(title, issue_type, priority, **kwargs)
+        issue = create_issue(title, issue_type, priority, workspace=self._workspace, **kwargs)
         self._audit.log_allowed("beads", "create_issue", agent, {**details, "id": issue.id})
         return issue
 
@@ -231,7 +234,7 @@ class BeadsGuard:
             self._audit.log_denied("beads", "update_issue", agent, result.reason, details)
             raise PermissionError(f"BeadsGuard denied update: {result.reason}")
 
-        update_issue(issue_id, **kwargs)
+        update_issue(issue_id, workspace=self._workspace, **kwargs)
         self._audit.log_allowed("beads", "update_issue", agent, details)
 
     def guarded_close(self, issue_id: str, agent: str, reason: str | None = None) -> None:
@@ -244,7 +247,7 @@ class BeadsGuard:
 
         # Check agent is allowed
         try:
-            issue = show_issue(issue_id)
+            issue = show_issue(issue_id, workspace=self._workspace)
             if issue.assignee and issue.assignee != agent and agent not in EPIC_CREATORS:
                 deny_reason = f"Agent '{agent}' cannot close issue assigned to '{issue.assignee}'"
                 self._audit.log_denied("beads", "close_issue", agent, deny_reason, details)
@@ -253,5 +256,5 @@ class BeadsGuard:
             self._audit.log_error("beads", "close_issue", agent, str(e), details)
             raise
 
-        close_issue(issue_id, reason)
+        close_issue(issue_id, reason, workspace=self._workspace)
         self._audit.log_allowed("beads", "close_issue", agent, details)

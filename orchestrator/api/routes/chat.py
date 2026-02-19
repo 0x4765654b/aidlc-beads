@@ -9,14 +9,14 @@ from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, Request
 
-from orchestrator.api.deps import get_ws_manager, get_engine
+from orchestrator.api.deps import get_ws_manager, get_registry, resolve_project_workspace
 from orchestrator.api.models import (
     ChatRequest,
     ChatResponse,
     ChatMessage,
 )
 from orchestrator.api.websocket import ConnectionManager
-from orchestrator.engine.agent_engine import AgentEngine
+from orchestrator.engine.project_registry import ProjectRegistry
 
 logger = logging.getLogger("api.chat")
 
@@ -81,12 +81,15 @@ def _store_message(msg: ChatMessage) -> None:
 @router.post("/", response_model=ChatResponse)
 async def send_chat_message(
     body: ChatRequest,
+    request: Request,
     ws: ConnectionManager = Depends(get_ws_manager),
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> ChatResponse:
     """Send a chat message to Harmbe and get a response.
 
     Routes the message to the Harmbe Strands agent backed by
-    Claude Opus 4.6 on Bedrock. Includes conversation history as context.
+    Claude Opus 4.6 on Bedrock. Includes conversation history as context
+    and Beads project state so Harmbe can report on pipeline progress.
     Falls back to a placeholder if the agent is unavailable.
     """
     now = datetime.now(timezone.utc).isoformat()
@@ -101,7 +104,10 @@ async def send_chat_message(
     )
     _store_message(user_msg)
 
-    # Invoke Harmbe agent with conversation context
+    # Resolve project workspace so Harmbe can query Beads
+    workspace_root = resolve_project_workspace(registry, body.project_key) or ""
+
+    # Invoke Harmbe agent with proper context (includes Beads state)
     harmbe = _get_harmbe()
     actions: list[str] = []
 
@@ -110,25 +116,14 @@ async def send_chat_message(
             channel = body.project_key or "global"
             conversation = _build_conversation_context(channel)
 
-            project_ctx = f" (project: {body.project_key})" if body.project_key else ""
-            prompt_parts = []
-
-            if conversation:
-                prompt_parts.append(
-                    "Here is the recent conversation history:\n"
-                    f"{conversation}\n\n"
-                )
-
-            prompt_parts.append(
-                f"The human says{project_ctx}: {body.message}\n\n"
-                "Respond helpfully and concisely as Harmbe, the Gorilla Troop supervisor. "
-                "You can help with: project status, reviewing artifacts, answering questions "
-                "about the AIDLC workflow, explaining what agents are doing, and general guidance."
-            )
-
-            prompt = "".join(prompt_parts)
-            response_text = await harmbe._invoke_llm(prompt)
-            actions.append("harmbe_llm_invoked")
+            context = {
+                "action": "chat",
+                "message": body.message,
+                "conversation_history": conversation,
+                "workspace_root": workspace_root,
+            }
+            response_text = await harmbe._execute(context)
+            actions.append("harmbe_chat_executed")
         except Exception as e:
             logger.error("Harmbe invocation failed: %s", e)
             response_text = f"Harmbe encountered an error: {e}"

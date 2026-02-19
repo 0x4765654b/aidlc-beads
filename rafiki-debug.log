@@ -1,0 +1,1522 @@
+2026-02-17 15:45:57,921 rafiki                   INFO  Workspace root: C:\dev\git-repos\aidlc-beads
+2026-02-17 15:45:57,922 asyncio                  DEBUG Using proactor: IocpProactor
+2026-02-17 15:45:57,925 rafiki.lifecycle         INFO  State -> INITIALIZING
+2026-02-17 15:45:57,927 rafiki.lifecycle         INFO  Loaded vision.md from C:\dev\git-repos\aidlc-beads\rafiki-project\vision.md
+2026-02-17 15:45:57,928 rafiki.lifecycle         INFO  Loaded tech-env.md from C:\dev\git-repos\aidlc-beads\rafiki-project\tech-env.md
+2026-02-17 15:45:58,727 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:45:58,749 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EB7B60>
+2026-02-17 15:45:58,751 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:45:58,752 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:45:58,752 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:45:58,753 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:45:58,753 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:45:58,755 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:45:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'15'), (b'content-type', b'application/json')])
+2026-02-17 15:45:58,756 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/health "HTTP/1.1 200 OK"
+2026-02-17 15:45:58,756 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:45:58,756 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:45:58,757 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:45:58,758 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:45:58,760 rafiki.client.ws         WARNING websockets package not installed; WebSocket listener disabled
+2026-02-17 15:45:58,760 rafiki.lifecycle         INFO  State -> CREATING_PROJECT
+2026-02-17 15:45:58,761 rafiki.lifecycle         INFO  Creating project: local=C:\dev\git-repos\aidlc-beads\workspace\sci-calc docker=/workspace/sci-calc
+2026-02-17 15:45:59,326 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:45:59,330 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0F17C50>
+2026-02-17 15:45:59,332 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'POST']>
+2026-02-17 15:45:59,333 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:45:59,333 httpcore.http11          DEBUG send_request_body.started request=<Request [b'POST']>
+2026-02-17 15:45:59,334 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:45:59,334 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'POST']>
+2026-02-17 15:45:59,619 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'date', b'Tue, 17 Feb 2026 15:45:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'226'), (b'content-type', b'application/json')])
+2026-02-17 15:45:59,620 httpx                    INFO  HTTP Request: POST http://localhost:9741/api/projects/ "HTTP/1.1 201 Created"
+2026-02-17 15:45:59,620 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'POST']>
+2026-02-17 15:45:59,621 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:45:59,623 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:45:59,624 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:45:59,631 rafiki.lifecycle         INFO  Wrote vision.md to C:\dev\git-repos\aidlc-beads\workspace\sci-calc
+2026-02-17 15:45:59,634 rafiki.lifecycle         INFO  Wrote tech-env.md to C:\dev\git-repos\aidlc-beads\workspace\sci-calc
+2026-02-17 15:46:00,362 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:00,369 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14B2210>
+2026-02-17 15:46:00,371 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:00,372 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:00,372 httpcore.http11          DEBUG send_request_body.started request=<Request [b'POST']>
+2026-02-17 15:46:00,373 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:00,373 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:00,628 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'date', b'Tue, 17 Feb 2026 15:45:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'111'), (b'content-type', b'application/json')])
+2026-02-17 15:46:00,628 httpx                    INFO  HTTP Request: POST http://localhost:9741/api/projects/sci-calc/files "HTTP/1.1 201 Created"
+2026-02-17 15:46:00,628 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'POST']>
+2026-02-17 15:46:00,629 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:00,630 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:00,631 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:00,632 rafiki.lifecycle         INFO  Uploaded vision.md via API
+2026-02-17 15:46:00,636 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:00,636 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:00,637 httpcore.http11          DEBUG send_request_body.started request=<Request [b'POST']>
+2026-02-17 15:46:00,637 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:00,638 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:00,667 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'date', b'Tue, 17 Feb 2026 15:45:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'113'), (b'content-type', b'application/json')])
+2026-02-17 15:46:00,667 httpx                    INFO  HTTP Request: POST http://localhost:9741/api/projects/sci-calc/files "HTTP/1.1 201 Created"
+2026-02-17 15:46:00,667 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'POST']>
+2026-02-17 15:46:00,668 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:00,669 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:00,670 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:00,671 rafiki.lifecycle         INFO  Uploaded tech-env.md via API
+2026-02-17 15:46:00,671 rafiki.lifecycle         INFO  State -> CHATTING
+2026-02-17 15:46:00,671 rafiki.handlers.chat     INFO  Chat: What is the current status of the sci-calc project?
+2026-02-17 15:46:01,499 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:01,507 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14C2060>
+2026-02-17 15:46:01,509 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:01,510 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:01,511 httpcore.http11          DEBUG send_request_body.started request=<Request [b'POST']>
+2026-02-17 15:46:01,511 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:01,512 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'POST']>
+2026-02-17 15:46:06,186 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:00 GMT'), (b'server', b'uvicorn'), (b'content-length', b'698'), (b'content-type', b'application/json')])
+2026-02-17 15:46:06,187 httpx                    INFO  HTTP Request: POST http://localhost:9741/api/chat/ "HTTP/1.1 200 OK"
+2026-02-17 15:46:06,187 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'POST']>
+2026-02-17 15:46:06,187 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:06,188 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:06,188 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:06,190 rafiki.lifecycle         INFO  State -> MONITORING
+2026-02-17 15:46:06,193 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:06,194 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:06,196 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:06,200 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14C2FD0>
+2026-02-17 15:46:06,202 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:06,204 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:06,204 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:06,204 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:06,205 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:06,207 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:05 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:06,208 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:06,208 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:06,208 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:06,210 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:06,210 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:07,134 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:07,140 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A1462F90>
+2026-02-17 15:46:07,143 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:07,144 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:07,144 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:07,145 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:07,145 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:07,339 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:06 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:07,340 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:07,340 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:07,341 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:07,343 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:07,344 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:08,248 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:08,253 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0F0FCE0>
+2026-02-17 15:46:08,256 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:08,257 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:08,257 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:08,258 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:08,258 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:08,467 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:07 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:08,468 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:08,468 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:08,469 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:08,470 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:08,470 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:09,374 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:09,380 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14D1590>
+2026-02-17 15:46:09,381 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:09,382 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:09,382 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:09,382 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:09,383 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:09,386 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:08 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:09,387 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:09,387 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:09,387 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:09,390 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:09,390 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:14,409 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:14,411 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:14,414 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:14,418 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A147E550>
+2026-02-17 15:46:14,421 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,422 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:14,423 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,423 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:14,423 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,426 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:13 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:14,426 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:14,426 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,426 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:14,429 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:14,430 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:14,435 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:14,436 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:14,437 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:14,442 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A147F350>
+2026-02-17 15:46:14,444 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,445 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:14,445 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,445 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:14,446 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,641 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:13 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:14,641 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:14,641 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,641 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:14,644 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:14,645 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:14,652 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:14,653 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:14,655 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:14,661 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14D9130>
+2026-02-17 15:46:14,664 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,665 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:14,665 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,665 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:14,666 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,893 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:13 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:14,894 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:14,895 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,895 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:14,897 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:14,898 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:14,903 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:14,904 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:14,907 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:14,913 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14DA3F0>
+2026-02-17 15:46:14,915 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,917 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:14,918 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,918 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:14,918 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:14,922 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:13 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:14,923 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:14,924 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:14,924 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:14,926 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:14,926 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:19,946 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:19,947 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:19,950 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:19,955 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14E5A90>
+2026-02-17 15:46:19,956 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:19,957 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:19,957 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:19,957 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:19,958 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:19,962 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:19,963 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:19,963 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:19,963 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:19,965 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:19,965 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:19,971 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:19,972 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:19,974 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:19,979 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14E6510>
+2026-02-17 15:46:19,983 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:19,984 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:19,984 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:19,985 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:19,985 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:20,196 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:20,197 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:20,197 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:20,198 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:20,200 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:20,201 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:20,210 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:20,212 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:20,213 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:20,219 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A1471A50>
+2026-02-17 15:46:20,223 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:20,224 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:20,224 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:20,225 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:20,225 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:20,422 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:20,423 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:20,424 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:20,424 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:20,426 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:20,426 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:20,433 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:20,433 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:20,437 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:20,441 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EDAD50>
+2026-02-17 15:46:20,443 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:20,444 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:20,444 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:20,445 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:20,445 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:20,447 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:20,448 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:20,448 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:20,448 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:20,450 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:20,451 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:25,470 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:25,471 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:25,472 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:25,477 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EDB4D0>
+2026-02-17 15:46:25,478 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,479 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:25,479 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,480 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:25,480 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,483 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:24 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:25,484 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:25,484 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,485 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:25,486 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:25,487 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:25,493 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:25,494 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:25,496 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:25,500 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EF26D0>
+2026-02-17 15:46:25,503 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,503 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:25,504 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,504 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:25,504 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,731 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:24 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:25,732 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:25,732 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,733 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:25,736 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:25,737 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:25,740 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:25,741 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:25,743 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:25,748 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EF2BA0>
+2026-02-17 15:46:25,750 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,751 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:25,752 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,752 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:25,752 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,957 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:24 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:25,958 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:25,958 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,959 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:25,961 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:25,962 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:25,966 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:25,967 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:25,969 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:25,973 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14C5C70>
+2026-02-17 15:46:25,975 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,976 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:25,976 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,977 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:25,977 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:25,979 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:25 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:25,979 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:25,979 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:25,979 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:25,981 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:25,981 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:30,991 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:30,992 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:30,995 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:30,999 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14684B0>
+2026-02-17 15:46:31,000 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,002 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:31,003 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,003 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:31,003 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,005 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:30 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:31,005 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:31,006 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,006 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:31,007 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:31,007 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:31,013 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:31,014 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:31,015 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:31,019 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A0EBBBF0>
+2026-02-17 15:46:31,020 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,022 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:31,022 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,022 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:31,022 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,228 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:30 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:31,229 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:31,230 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,230 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:31,233 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:31,234 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:31,239 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:31,240 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:31,242 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:31,248 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14BF2D0>
+2026-02-17 15:46:31,250 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,251 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:31,251 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,251 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:31,251 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,446 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:30 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:31,447 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:31,447 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,447 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:31,449 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:31,450 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:31,456 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:31,457 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:31,459 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:31,464 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14BEDD0>
+2026-02-17 15:46:31,466 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,467 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:31,468 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,468 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:31,469 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:31,472 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:30 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:31,473 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:31,474 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:31,474 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:31,476 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:31,476 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:36,490 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:36,490 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:36,492 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:36,496 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A148D160>
+2026-02-17 15:46:36,498 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,499 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:36,499 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,500 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:36,500 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,503 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:36,503 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:36,503 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,504 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:36,505 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:36,505 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:36,510 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:36,511 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:36,512 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:36,517 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A148C910>
+2026-02-17 15:46:36,519 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,519 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:36,520 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,520 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:36,520 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,717 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:36,718 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:36,719 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,719 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:36,720 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:36,720 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:36,725 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:36,726 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:36,728 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:36,731 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A148A150>
+2026-02-17 15:46:36,733 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,734 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:36,734 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,735 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:36,735 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,929 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:36,929 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:36,930 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,930 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:36,932 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:36,932 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:36,939 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:36,940 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:36,944 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:36,949 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A1489910>
+2026-02-17 15:46:36,951 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,952 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:36,953 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,953 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:36,953 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:36,957 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:36,958 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:36,958 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:36,958 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:36,961 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:36,961 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:41,983 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:41,984 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:41,986 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:41,992 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AA4E0>
+2026-02-17 15:46:41,995 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:41,996 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:41,996 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:41,997 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:41,997 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,000 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:42,001 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:42,001 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,001 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:42,003 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:42,003 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:42,009 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:42,010 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:42,012 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:42,015 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A93B0>
+2026-02-17 15:46:42,017 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,019 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:42,019 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,019 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:42,019 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,249 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:42,250 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:42,250 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,250 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:42,252 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:42,252 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:42,257 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:42,258 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:42,260 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:42,265 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A9EA0>
+2026-02-17 15:46:42,267 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,268 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:42,268 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,269 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:42,269 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,464 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:42,465 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:42,465 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,466 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:42,467 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:42,467 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:42,474 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:42,475 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:42,477 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:42,482 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AAC60>
+2026-02-17 15:46:42,484 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,486 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:42,486 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,487 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:42,487 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:42,490 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:42,490 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:42,491 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:42,491 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:42,492 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:42,493 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:47,502 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:47,503 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:47,505 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:47,510 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A9310>
+2026-02-17 15:46:47,513 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:47,514 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:47,514 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:47,514 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:47,514 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:47,518 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:46 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:47,518 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:47,519 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:47,519 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:47,520 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:47,520 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:47,526 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:47,527 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:47,531 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:47,535 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB390>
+2026-02-17 15:46:47,538 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:47,538 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:47,539 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:47,539 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:47,539 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:47,819 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:46 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:47,820 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:47,820 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:47,820 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:47,822 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:47,822 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:47,827 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:47,828 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:47,830 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:47,835 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB570>
+2026-02-17 15:46:47,838 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:47,839 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:47,839 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:47,839 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:47,839 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:48,060 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:46 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:48,061 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:48,061 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:48,061 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:48,063 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:48,063 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:48,068 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:48,069 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:48,071 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:48,077 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB8E0>
+2026-02-17 15:46:48,080 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:48,080 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:48,081 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:48,081 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:48,081 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:48,091 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:46 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:48,091 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:48,092 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:48,092 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:48,094 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:48,094 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:53,102 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:53,103 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:53,104 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:53,109 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB840>
+2026-02-17 15:46:53,112 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,113 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:53,113 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,113 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:53,113 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,119 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:52 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:53,119 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:53,120 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,120 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:53,121 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:53,121 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:53,126 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:53,127 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:53,128 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:53,132 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14ABD90>
+2026-02-17 15:46:53,133 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,134 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:53,135 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,135 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:53,135 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,372 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:52 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:53,372 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:53,372 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,373 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:53,374 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:53,374 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:53,377 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:53,378 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:53,380 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:53,383 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F80A0>
+2026-02-17 15:46:53,385 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,386 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:53,386 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,386 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:53,386 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,629 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:52 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:53,629 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:53,630 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,630 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:53,631 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:53,631 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:53,634 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:53,635 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:53,636 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:53,639 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8410>
+2026-02-17 15:46:53,640 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,641 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:53,641 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,641 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:53,642 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:53,644 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:53 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:53,645 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:53,645 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:53,645 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:53,646 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:53,646 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:58,659 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:58,659 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:58,661 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:58,665 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8910>
+2026-02-17 15:46:58,667 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:58,668 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:58,668 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:58,668 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:58,669 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:58,675 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:46:58,675 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:46:58,675 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:58,676 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:58,677 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:58,677 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:58,681 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:58,682 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:58,684 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:58,689 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8AF0>
+2026-02-17 15:46:58,691 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:58,692 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:58,692 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:58,692 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:58,692 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:58,897 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:58,898 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:58,898 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:58,898 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:58,901 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:58,901 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:58,904 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:58,905 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:58,906 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:58,909 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8CD0>
+2026-02-17 15:46:58,911 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:58,912 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:58,912 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:58,913 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:58,913 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:59,117 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:59,117 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:46:59,117 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:59,118 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:59,119 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:59,119 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:46:59,122 httpcore.connection      DEBUG close.started
+2026-02-17 15:46:59,123 httpcore.connection      DEBUG close.complete
+2026-02-17 15:46:59,124 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:46:59,129 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9090>
+2026-02-17 15:46:59,130 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:59,130 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:46:59,131 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:46:59,131 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:46:59,131 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:46:59,133 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:46:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:46:59,134 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:46:59,134 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:46:59,134 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:46:59,135 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:46:59,136 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:04,144 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:04,145 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:04,146 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:04,148 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9040>
+2026-02-17 15:47:04,150 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,151 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:04,151 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,151 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:04,152 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,156 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:03 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:04,156 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:04,157 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,157 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:04,158 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:04,158 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:04,161 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:04,161 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:04,162 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:04,165 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F99A0>
+2026-02-17 15:47:04,167 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,168 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:04,168 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,169 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:04,169 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,380 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:03 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:04,380 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:04,380 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,381 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:04,381 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:04,382 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:04,386 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:04,386 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:04,388 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:04,391 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9810>
+2026-02-17 15:47:04,393 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,393 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:04,393 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,394 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:04,394 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,612 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:03 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:04,612 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:04,613 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,613 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:04,614 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:04,615 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:04,618 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:04,619 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:04,620 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:04,624 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9D10>
+2026-02-17 15:47:04,626 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,627 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:04,628 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,628 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:04,628 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:04,632 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:03 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:04,632 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:04,633 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:04,633 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:04,634 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:04,635 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:09,650 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:09,650 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:09,651 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:09,654 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9CC0>
+2026-02-17 15:47:09,656 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:09,656 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:09,656 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:09,656 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:09,657 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:09,662 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:09 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:09,663 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:09,663 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:09,663 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:09,664 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:09,664 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:09,668 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:09,668 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:09,669 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:09,672 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA2B0>
+2026-02-17 15:47:09,674 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:09,674 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:09,674 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:09,675 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:09,675 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:09,905 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:09 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:09,905 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:09,906 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:09,906 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:09,907 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:09,907 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:09,910 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:09,911 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:09,912 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:09,915 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA3A0>
+2026-02-17 15:47:09,916 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:09,917 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:09,917 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:09,918 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:09,918 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:10,119 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:09 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:10,119 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:10,119 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:10,119 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:10,120 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:10,121 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:10,124 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:10,124 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:10,125 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:10,128 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA990>
+2026-02-17 15:47:10,130 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:10,131 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:10,131 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:10,132 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:10,132 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:10,135 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:09 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:10,135 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:10,135 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:10,135 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:10,136 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:10,137 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:15,143 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:15,143 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:15,144 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:15,147 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA940>
+2026-02-17 15:47:15,148 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,149 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:15,149 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,150 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:15,150 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,154 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:14 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:15,154 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:15,155 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,155 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:15,156 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:15,156 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:15,158 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:15,159 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:15,160 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:15,164 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB750>
+2026-02-17 15:47:15,166 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,166 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:15,167 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,167 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:15,167 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,390 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:14 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:15,391 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:15,391 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,392 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:15,393 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:15,393 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:15,396 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:15,397 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:15,398 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:15,401 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14ABE30>
+2026-02-17 15:47:15,402 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,403 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:15,403 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,403 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:15,403 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,634 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:14 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:15,635 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:15,635 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,635 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:15,636 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:15,637 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:15,639 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:15,640 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:15,641 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:15,644 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB9D0>
+2026-02-17 15:47:15,645 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,646 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:15,646 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,646 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:15,647 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:15,650 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:14 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:15,651 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:15,651 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:15,651 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:15,652 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:15,652 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:20,660 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:20,661 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:20,662 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:20,665 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB840>
+2026-02-17 15:47:20,667 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:20,668 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:20,668 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:20,668 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:20,669 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:20,671 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:20,672 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:20,672 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:20,672 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:20,673 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:20,673 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:20,677 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:20,677 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:20,678 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:20,681 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB390>
+2026-02-17 15:47:20,683 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:20,683 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:20,684 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:20,684 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:20,684 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:20,899 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:20,899 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:20,899 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:20,899 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:20,901 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:20,901 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:20,904 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:20,904 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:20,905 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:20,908 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB2F0>
+2026-02-17 15:47:20,909 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:20,910 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:20,910 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:20,911 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:20,911 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:21,109 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:19 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:21,109 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:21,110 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:21,110 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:21,111 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:21,112 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:21,115 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:21,116 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:21,117 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:21,120 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A8E10>
+2026-02-17 15:47:21,121 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:21,122 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:21,122 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:21,122 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:21,122 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:21,126 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:21 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:21,126 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:21,126 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:21,126 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:21,127 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:21,128 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:26,131 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:26,131 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:26,133 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:26,136 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AA300>
+2026-02-17 15:47:26,138 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,138 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:26,139 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,139 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:26,139 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,142 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:26 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:26,142 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:26,142 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,142 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:26,144 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:26,144 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:26,147 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:26,147 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:26,148 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:26,151 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A9D10>
+2026-02-17 15:47:26,152 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,153 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:26,153 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,154 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:26,154 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,335 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:26 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:26,336 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:26,336 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,336 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:26,337 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:26,338 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:26,341 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:26,342 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:26,343 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:26,345 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14A9950>
+2026-02-17 15:47:26,347 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,347 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:26,347 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,347 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:26,347 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,551 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:26 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:26,552 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:26,552 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,552 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:26,554 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:26,555 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:26,559 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:26,559 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:26,560 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:26,563 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AAA80>
+2026-02-17 15:47:26,564 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,565 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:26,566 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,566 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:26,566 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:26,568 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:26 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:26,569 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:26,569 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:26,569 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:26,571 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:26,571 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:31,585 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:31,586 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:31,587 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:31,590 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AAEE0>
+2026-02-17 15:47:31,591 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:31,591 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:31,592 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:31,592 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:31,592 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:31,596 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:31 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:31,596 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:31,597 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:31,597 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:31,598 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:31,599 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:31,602 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:31,603 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:31,604 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:31,607 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AAE90>
+2026-02-17 15:47:31,608 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:31,609 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:31,609 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:31,609 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:31,609 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:31,820 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:31 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:31,821 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:31,821 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:31,821 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:31,822 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:31,822 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:31,825 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:31,826 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:31,827 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:31,829 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14ABA20>
+2026-02-17 15:47:31,830 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:31,831 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:31,831 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:31,831 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:31,831 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:32,044 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:31 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:32,045 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:32,045 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:32,045 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:32,046 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:32,046 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:32,049 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:32,050 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:32,051 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:32,054 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AA260>
+2026-02-17 15:47:32,055 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:32,055 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:32,055 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:32,056 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:32,056 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:32,059 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:31 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:32,059 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:32,059 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:32,059 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:32,060 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:32,061 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:37,068 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:37,069 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:37,070 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:37,075 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB1B0>
+2026-02-17 15:47:37,077 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,078 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:37,078 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,078 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:37,079 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,081 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:37,082 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:37,083 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,083 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:37,085 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:37,086 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:37,089 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:37,089 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:37,090 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:37,095 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FADA0>
+2026-02-17 15:47:37,096 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,096 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:37,097 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,097 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:37,097 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,312 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:37,312 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:37,312 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,313 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:37,314 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:37,314 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:37,317 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:37,317 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:37,318 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:37,321 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA8A0>
+2026-02-17 15:47:37,322 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,323 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:37,323 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,323 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:37,323 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,547 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:37,548 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:37,548 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,548 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:37,549 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:37,550 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:37,553 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:37,553 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:37,554 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:37,557 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA620>
+2026-02-17 15:47:37,559 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,560 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:37,560 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,560 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:37,560 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:37,563 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:36 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:37,563 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:37,564 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:37,564 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:37,565 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:37,565 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:42,576 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:42,576 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:42,577 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:42,580 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FA170>
+2026-02-17 15:47:42,582 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:42,582 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:42,582 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:42,583 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:42,583 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:42,588 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:42,588 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:42,589 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:42,589 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:42,591 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:42,592 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:42,595 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:42,596 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:42,597 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:42,600 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F98B0>
+2026-02-17 15:47:42,602 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:42,603 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:42,603 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:42,604 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:42,604 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:42,823 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:42,824 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:42,824 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:42,824 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:42,825 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:42,825 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:42,828 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:42,828 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:42,829 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:42,832 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9810>
+2026-02-17 15:47:42,834 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:42,835 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:42,836 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:42,836 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:42,836 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:43,044 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:43,044 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:43,045 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:43,045 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:43,046 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:43,047 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:43,050 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:43,051 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:43,052 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:43,055 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9540>
+2026-02-17 15:47:43,056 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:43,057 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:43,057 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:43,057 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:43,058 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:43,060 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:41 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:43,060 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:43,061 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:43,061 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:43,062 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:43,062 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:48,069 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:48,069 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:48,070 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:48,074 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9270>
+2026-02-17 15:47:48,078 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,078 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:48,078 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,079 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:48,079 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,081 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:47 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:48,082 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:48,082 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,082 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:48,083 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:48,083 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:48,086 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:48,087 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:48,088 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:48,093 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8FF0>
+2026-02-17 15:47:48,094 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,095 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:48,095 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,095 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:48,095 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,289 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:47 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:48,289 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:48,289 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,289 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:48,291 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:48,291 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:48,294 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:48,294 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:48,297 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:48,303 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8AF0>
+2026-02-17 15:47:48,306 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,308 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:48,308 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,308 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:48,308 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,514 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:47 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:48,515 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:48,515 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,515 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:48,517 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:48,518 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:48,525 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:48,526 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:48,529 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:48,534 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F89B0>
+2026-02-17 15:47:48,536 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,537 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:48,537 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,537 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:48,538 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:48,539 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:48 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:48,540 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:48,540 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:48,541 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:48,542 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:48,542 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:53,559 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:53,560 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:53,563 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:53,567 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8320>
+2026-02-17 15:47:53,569 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:53,569 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:53,569 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:53,569 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:53,570 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:53,574 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:53 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:53,574 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:53,575 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:53,575 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:53,578 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:53,578 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:53,583 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:53,584 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:53,587 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:53,592 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F8AA0>
+2026-02-17 15:47:53,594 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:53,595 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:53,596 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:53,596 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:53,596 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:53,812 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:53 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:53,813 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:53,814 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:53,814 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:53,816 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:53,816 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:53,820 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:53,820 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:53,822 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:53,827 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F87D0>
+2026-02-17 15:47:53,829 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:53,830 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:53,830 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:53,831 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:53,831 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:54,059 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:53 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:54,060 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:54,060 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:54,061 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:54,065 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:54,066 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:54,072 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:54,073 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:54,075 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:54,080 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB2A0>
+2026-02-17 15:47:54,083 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:54,085 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:54,085 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:54,086 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:54,086 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:54,088 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:53 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:54,088 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:54,089 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:54,089 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:54,090 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:54,090 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:59,098 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:59,099 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:59,101 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:59,110 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB520>
+2026-02-17 15:47:59,113 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,115 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:59,115 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,116 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:59,117 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,120 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:47:59,120 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:47:59,121 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,121 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:59,124 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:59,124 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:59,132 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:59,133 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:59,135 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:59,140 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB700>
+2026-02-17 15:47:59,143 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,144 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:59,144 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,145 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:59,145 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,364 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:59,364 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/review/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:59,365 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,365 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:59,368 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:59,369 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:59,378 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:59,379 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:59,380 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:59,384 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FBC00>
+2026-02-17 15:47:59,387 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,389 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:59,389 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,389 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:59,390 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,592 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:59,593 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/questions/?project_key=sci-calc "HTTP/1.1 200 OK"
+2026-02-17 15:47:59,593 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,593 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:59,594 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:59,595 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:59,600 httpcore.connection      DEBUG close.started
+2026-02-17 15:47:59,600 httpcore.connection      DEBUG close.complete
+2026-02-17 15:47:59,602 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:47:59,605 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB930>
+2026-02-17 15:47:59,606 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,607 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:47:59,608 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,608 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:47:59,608 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:47:59,610 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:47:58 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:47:59,610 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/notifications/?project_key=sci-calc&unread_only=true "HTTP/1.1 200 OK"
+2026-02-17 15:47:59,611 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:47:59,612 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:47:59,614 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:47:59,614 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:47:59,616 rafiki.lifecycle         INFO  State -> STALLED
+2026-02-17 15:48:00,548 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:48:00,556 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FBA20>
+2026-02-17 15:48:00,558 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:00,559 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:48:00,560 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:48:00,560 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:48:00,560 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:00,564 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:48:00 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:48:00,565 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/logs/?limit=20&level=WARNING "HTTP/1.1 200 OK"
+2026-02-17 15:48:00,565 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:48:00,566 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:48:00,567 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:48:00,568 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:48:00,570 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:01,436 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-129 instead of filing new issue
+2026-02-17 15:48:01,437 rafiki.issues            DEBUG Running: bd comments add gt-129 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+No progress detected for 2.0 minutes.
+
+Handled reviews: 0
+Handled questions: 0
+Stall count: 1
+2026-02-17 15:48:02,302 rafiki.handlers.chat     INFO  Chat: I haven't seen progress in 0 minutes. What's happening with current stage?
+2026-02-17 15:48:02,304 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:02,305 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:02,307 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:48:02,310 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14FB5C0>
+2026-02-17 15:48:02,311 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'POST']>
+2026-02-17 15:48:02,312 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:48:02,313 httpcore.http11          DEBUG send_request_body.started request=<Request [b'POST']>
+2026-02-17 15:48:02,313 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:48:02,314 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'POST']>
+2026-02-17 15:48:11,114 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:48:02 GMT'), (b'server', b'uvicorn'), (b'content-length', b'1413'), (b'content-type', b'application/json')])
+2026-02-17 15:48:11,115 httpx                    INFO  HTTP Request: POST http://localhost:9741/api/chat/ "HTTP/1.1 200 OK"
+2026-02-17 15:48:11,115 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'POST']>
+2026-02-17 15:48:11,116 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:48:11,117 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:48:11,117 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:48:11,121 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:11,121 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:11,122 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:48:11,125 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F9540>
+2026-02-17 15:48:11,127 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:11,127 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:48:11,128 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:48:11,128 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:48:11,128 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:11,131 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:48:10 GMT'), (b'server', b'uvicorn'), (b'content-length', b'204'), (b'content-type', b'application/json')])
+2026-02-17 15:48:11,132 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/projects/sci-calc/status "HTTP/1.1 200 OK"
+2026-02-17 15:48:11,132 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:48:11,132 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:48:11,134 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:48:11,134 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:48:11,135 rafiki.lifecycle         WARNING Fast-fail: No active agents for project and no pipeline events received. The orchestrator has no work assigned for this project.
+2026-02-17 15:48:11,137 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:11,138 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:11,138 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:48:11,143 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14F87D0>
+2026-02-17 15:48:11,148 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:11,148 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:48:11,149 httpcore.http11          DEBUG send_request_body.started request=<Request [b'GET']>
+2026-02-17 15:48:11,149 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:48:11,149 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'GET']>
+2026-02-17 15:48:11,152 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'date', b'Tue, 17 Feb 2026 15:48:10 GMT'), (b'server', b'uvicorn'), (b'content-length', b'2'), (b'content-type', b'application/json')])
+2026-02-17 15:48:11,152 httpx                    INFO  HTTP Request: GET http://localhost:9741/api/logs/?limit=20&level=WARNING "HTTP/1.1 200 OK"
+2026-02-17 15:48:11,152 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'GET']>
+2026-02-17 15:48:11,153 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:48:11,154 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:48:11,154 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:48:11,155 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:12,106 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-135 instead of filing new issue
+2026-02-17 15:48:12,106 rafiki.issues            DEBUG Running: bd comments add gt-135 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+No active agents for project and no pipeline events received. The orchestrator has no work assigned for this project.
+2026-02-17 15:48:13,005 rafiki.lifecycle         INFO  State -> FAILED
+2026-02-17 15:48:13,006 rafiki.lifecycle         INFO  State -> VERIFYING
+2026-02-17 15:48:13,006 rafiki.verifier          INFO  Verification [1/8]: AIDLC artifacts exist
+2026-02-17 15:48:13,017 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:13,907 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-152 instead of filing new issue
+2026-02-17 15:48:13,908 rafiki.issues            DEBUG Running: bd comments add gt-152 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+aidlc-docs/ exists but contains no markdown files.
+2026-02-17 15:48:14,849 rafiki.verifier          INFO  Verification [2/8]: No open Beads issues
+2026-02-17 15:48:14,849 rafiki.issues            DEBUG Running: bd list --status open --json
+2026-02-17 15:48:15,690 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:16,552 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-146 instead of filing new issue
+2026-02-17 15:48:16,553 rafiki.issues            DEBUG Running: bd comments add gt-146 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+Expected 0 open pipeline issues, found 15.
+2026-02-17 15:48:17,410 rafiki.verifier          INFO  Verification [3/8]: Source code structure
+2026-02-17 15:48:17,411 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:18,453 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-137 instead of filing new issue
+2026-02-17 15:48:18,453 rafiki.issues            DEBUG Running: bd comments add gt-137 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+Expected project files not found in C:\dev\git-repos\aidlc-beads\workspace\sci-calc:
+- pyproject.toml
+- src/
+- tests/
+2026-02-17 15:48:19,338 rafiki.verifier          INFO  Verification [4/8]: Build succeeds (uv sync)
+2026-02-17 15:48:19,419 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:20,304 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-147 instead of filing new issue
+2026-02-17 15:48:20,304 rafiki.issues            DEBUG Running: bd comments add gt-147 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+Build failed with exit code 2:
+error: No `pyproject.toml` found in current directory or any parent directory
+2026-02-17 15:48:21,192 rafiki.verifier          INFO  Verification [5/8]: Tests pass (uv run pytest)
+2026-02-17 15:48:23,074 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:23,985 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-148 instead of filing new issue
+2026-02-17 15:48:23,985 rafiki.issues            DEBUG Running: bd comments add gt-148 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+Test run failed:
+============================= test session starts =============================
+platform win32 -- Python 3.13.7, pytest-9.0.2, pluggy-1.6.0 -- C:\dev\Python\Python313\python.exe
+cachedir: .pytest_cache
+rootdir: C:\dev\git-repos\aidlc-beads\workspace\sci-calc
+plugins: anyio-4.12.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 0 items
+
+============================ no tests ran in 0.07s ============================
+2026-02-17 15:48:24,872 rafiki.verifier          INFO  Verification [6/8]: Linting (uv run ruff check)
+2026-02-17 15:48:25,005 rafiki.issues            DEBUG Running: bd create Rafiki: ruff found 2 lint violations -t task -p 2 --description Linting output:
+error: Failed to spawn: `ruff`
+  Caused by: program not found --labels discovered-by:rafiki,rafiki-run:rafiki-2026-02-17T15-45-57,discovered-from:verification
+2026-02-17 15:48:26,161 rafiki.issues            INFO  Filed task gt-154: ruff found 2 lint violations
+2026-02-17 15:48:26,161 rafiki.verifier          INFO  Verification [7/8]: API starts (/health)
+2026-02-17 15:48:30,113 httpcore.connection      DEBUG connect_tcp.started host='127.0.0.1' port=18765 local_address=None timeout=10.0 socket_options=None
+2026-02-17 15:48:32,140 httpcore.connection      DEBUG connect_tcp.failed exception=ConnectError(OSError('All connection attempts failed'))
+2026-02-17 15:48:32,144 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:33,071 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-150 instead of filing new issue
+2026-02-17 15:48:33,071 rafiki.issues            DEBUG Running: bd comments add gt-150 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+uvicorn could not start or health check failed: All connection attempts failed
+2026-02-17 15:48:33,987 rafiki.verifier          INFO  Verification [8/8]: Endpoint spot-checks
+2026-02-17 15:48:37,956 httpcore.connection      DEBUG connect_tcp.started host='127.0.0.1' port=18766 local_address=None timeout=10.0 socket_options=None
+2026-02-17 15:48:40,011 httpcore.connection      DEBUG connect_tcp.failed exception=ConnectError(OSError('All connection attempts failed'))
+2026-02-17 15:48:40,017 httpcore.connection      DEBUG connect_tcp.started host='127.0.0.1' port=18766 local_address=None timeout=10.0 socket_options=None
+2026-02-17 15:48:42,035 httpcore.connection      DEBUG connect_tcp.failed exception=ConnectError(OSError('All connection attempts failed'))
+2026-02-17 15:48:42,042 httpcore.connection      DEBUG connect_tcp.started host='127.0.0.1' port=18766 local_address=None timeout=10.0 socket_options=None
+2026-02-17 15:48:44,061 httpcore.connection      DEBUG connect_tcp.failed exception=ConnectError(OSError('All connection attempts failed'))
+2026-02-17 15:48:44,065 rafiki.issues            DEBUG Running: bd list --label discovered-by:rafiki --status open --json
+2026-02-17 15:48:44,954 rafiki.issues            INFO  Duplicate bug detected -- appending to gt-151 instead of filing new issue
+2026-02-17 15:48:44,955 rafiki.issues            DEBUG Running: bd comments add gt-151 [Rafiki run rafiki-2026-02-17T15-45-57] Duplicate detection:
+
+Passed: 0, Failed: 3
+- add(2,3)=5 error=All connection attempts failed
+- sqrt(16)=4.0 error=All connection attempts failed
+- sin(0)=0.0 error=All connection attempts failed
+2026-02-17 15:48:45,798 rafiki.lifecycle         INFO  State -> REPORTING
+2026-02-17 15:48:45,798 rafiki.lifecycle         INFO  State -> CLEANING_UP
+2026-02-17 15:48:45,799 rafiki.cleanup           INFO  Closed WebSocket connection
+2026-02-17 15:48:45,801 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,801 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,803 httpcore.connection      DEBUG connect_tcp.started host='localhost' port=9741 local_address=None timeout=30.0 socket_options=None
+2026-02-17 15:48:45,808 httpcore.connection      DEBUG connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000001C5A14AB110>
+2026-02-17 15:48:45,810 httpcore.http11          DEBUG send_request_headers.started request=<Request [b'DELETE']>
+2026-02-17 15:48:45,811 httpcore.http11          DEBUG send_request_headers.complete
+2026-02-17 15:48:45,812 httpcore.http11          DEBUG send_request_body.started request=<Request [b'DELETE']>
+2026-02-17 15:48:45,812 httpcore.http11          DEBUG send_request_body.complete
+2026-02-17 15:48:45,812 httpcore.http11          DEBUG receive_response_headers.started request=<Request [b'DELETE']>
+2026-02-17 15:48:45,843 httpcore.http11          DEBUG receive_response_headers.complete return_value=(b'HTTP/1.1', 204, b'No Content', [(b'date', b'Tue, 17 Feb 2026 15:48:45 GMT'), (b'server', b'uvicorn'), (b'content-type', b'application/json')])
+2026-02-17 15:48:45,843 httpx                    INFO  HTTP Request: DELETE http://localhost:9741/api/projects/sci-calc "HTTP/1.1 204 No Content"
+2026-02-17 15:48:45,844 httpcore.http11          DEBUG receive_response_body.started request=<Request [b'DELETE']>
+2026-02-17 15:48:45,844 httpcore.http11          DEBUG receive_response_body.complete
+2026-02-17 15:48:45,847 httpcore.http11          DEBUG response_closed.started
+2026-02-17 15:48:45,848 httpcore.http11          DEBUG response_closed.complete
+2026-02-17 15:48:45,850 rafiki.cleanup           INFO  Deleted project sci-calc from registry
+2026-02-17 15:48:45,881 rafiki.cleanup           INFO  Removed generated source: C:\dev\git-repos\aidlc-beads\workspace\sci-calc
+2026-02-17 15:48:45,881 rafiki.cleanup           WARNING No .beads/ directory at C:\dev\git-repos\aidlc-beads\workspace\sci-calc -- cannot close pipeline issues
+2026-02-17 15:48:45,884 rafiki.cleanup           INFO  Persisted state: C:\dev\git-repos\aidlc-beads\rafiki-state.json
+2026-02-17 15:48:45,887 rafiki.cleanup           INFO  Persisted report: C:\dev\git-repos\aidlc-beads\rafiki-report.json
+2026-02-17 15:48:45,890 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,891 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,894 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,895 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,897 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,898 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,900 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,901 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,905 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,906 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,907 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,908 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,910 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,910 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,911 httpcore.connection      DEBUG close.started
+2026-02-17 15:48:45,912 httpcore.connection      DEBUG close.complete
+2026-02-17 15:48:45,914 rafiki.cleanup           INFO  Closed 8 HTTP client(s)
+2026-02-17 15:48:45,915 rafiki.lifecycle         INFO  State -> DONE

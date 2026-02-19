@@ -30,7 +30,9 @@ def initialize_workspace(workspace_path: Path, project_key: str) -> None:
         1. ``mkdir -p`` the workspace directory.
         2. Run ``bd init`` to create ``.beads/`` (skipped if already present).
         3. Create the ``aidlc-docs/`` skeleton directories.
-        4. Copy seed docs (``vision.md``, ``tech-env.md``) if found nearby.
+
+    Seed docs (vision.md, tech-env.md) are the caller's responsibility
+    (Rafiki writes them via volume mount / API upload).
 
     Raises:
         OSError:  If the directory cannot be created.
@@ -53,8 +55,7 @@ def initialize_workspace(workspace_path: Path, project_key: str) -> None:
         (workspace_path / relpath).mkdir(parents=True, exist_ok=True)
     logger.info("[INIT] Scaffolded aidlc-docs/ skeleton")
 
-    # 4. Copy seed documents if available nearby.
-    _copy_seed_docs(workspace_path)
+    logger.info("[INIT] Workspace initialization complete: %s", workspace_path)
 
 
 def _run_bd_init(workspace_path: Path, project_key: str) -> None:
@@ -76,22 +77,3 @@ def _run_bd_init(workspace_path: Path, project_key: str) -> None:
     logger.info("[INIT] Ran bd init in %s (prefix=%s)", workspace_path, project_key)
 
 
-def _copy_seed_docs(workspace_path: Path) -> None:
-    """Copy vision.md / tech-env.md from a parent or sibling location, if found."""
-    seed_files = ["vision.md", "tech-env.md"]
-    search_dirs = [workspace_path.parent, *workspace_path.parent.iterdir()]
-
-    for name in seed_files:
-        # Already present in the workspace -- skip.
-        dest = workspace_path / name
-        if dest.exists():
-            continue
-
-        for candidate_dir in search_dirs:
-            if not candidate_dir.is_dir():
-                continue
-            src = candidate_dir / name
-            if src.is_file():
-                dest.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
-                logger.info("[INIT] Copied seed doc %s from %s", name, src)
-                break

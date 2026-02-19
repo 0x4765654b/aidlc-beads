@@ -56,6 +56,7 @@ class Harmbe(BaseAgent):
         if context is None:
             context = {}
 
+        self._workspace_root = context.get("workspace_root", getattr(self, "_workspace_root", ""))
         action = context.get("action", "chat")
 
         if action == "chat":
@@ -223,8 +224,9 @@ class Harmbe(BaseAgent):
         try:
             from orchestrator.lib.beads.client import list_issues, ready
 
-            all_issues = list_issues()
-            ready_issues = ready()
+            ws = getattr(self, "_workspace_root", "") or None
+            all_issues = list_issues(workspace=ws)
+            ready_issues = ready(workspace=ws)
 
             in_progress = [i for i in all_issues if i.status == "in_progress"]
             done = [i for i in all_issues if i.status == "done"]

@@ -6,10 +6,11 @@ from rafiki.client.questions import QuestionClient
 from rafiki.client.chat import ChatClient
 from rafiki.client.notifications import NotificationClient
 from rafiki.client.logs import LogsClient
+from rafiki.client.files import FileClient
 from rafiki.client.websocket import WebSocketListener
 
 __all__ = [
     "BaseClient", "HealthClient", "ProjectClient", "ReviewClient",
     "QuestionClient", "ChatClient", "NotificationClient", "LogsClient",
-    "WebSocketListener",
+    "FileClient", "WebSocketListener",
 ]

@@ -11,7 +11,7 @@ from orchestrator.lib.context.dispatch import (
     CompletionMessage,
     build_completion,
 )
-from orchestrator.lib.beads.client import list_issues, show_issue
+from orchestrator.lib.beads.client import list_issues
 
 logger = logging.getLogger("agents.groomer")
 
@@ -56,10 +56,12 @@ class Groomer(BaseAgent):
         if inbox_summary:
             report_sections.append(inbox_summary)
 
+        ws = dispatch.workspace_root or None
+
         # ------------------------------------------------------------------
         # 2. Query Beads for stale issues
         # ------------------------------------------------------------------
-        stale_summary, stale_discovered = await self._check_stale_issues()
+        stale_summary, stale_discovered = await self._check_stale_issues(workspace=ws)
         if stale_summary:
             report_sections.append(stale_summary)
         discovered_issues.extend(stale_discovered)
@@ -67,7 +69,7 @@ class Groomer(BaseAgent):
         # ------------------------------------------------------------------
         # 3. Detect overdue review gates
         # ------------------------------------------------------------------
-        overdue_summary, overdue_discovered = await self._check_overdue_reviews()
+        overdue_summary, overdue_discovered = await self._check_overdue_reviews(workspace=ws)
         if overdue_summary:
             report_sections.append(overdue_summary)
         discovered_issues.extend(overdue_discovered)
@@ -166,11 +168,11 @@ class Groomer(BaseAgent):
     # Stale issue detection
     # ------------------------------------------------------------------
 
-    async def _check_stale_issues(self) -> tuple[str, list[dict]]:
+    async def _check_stale_issues(self, workspace: str | None = None) -> tuple[str, list[dict]]:
         """Query Beads for issues stuck in 'in_progress' too long."""
         discovered: list[dict] = []
         try:
-            in_progress = list_issues(status="in_progress")
+            in_progress = list_issues(workspace=workspace, status="in_progress")
         except Exception as exc:
             logger.warning("[Groomer] Failed to list in-progress issues: %s", exc)
             return f"## Stale Issues\nFailed to query Beads: {exc}", []
@@ -209,11 +211,11 @@ class Groomer(BaseAgent):
     # Overdue review detection
     # ------------------------------------------------------------------
 
-    async def _check_overdue_reviews(self) -> tuple[str, list[dict]]:
+    async def _check_overdue_reviews(self, workspace: str | None = None) -> tuple[str, list[dict]]:
         """Look for open review gate issues older than the threshold."""
         discovered: list[dict] = []
         try:
-            review_issues = list_issues(label="stage:review-gate", status="open")
+            review_issues = list_issues(workspace=workspace, label="stage:review-gate", status="open")
         except Exception as exc:
             logger.warning(
                 "[Groomer] Failed to list review-gate issues: %s", exc

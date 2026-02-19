@@ -25,6 +25,7 @@ from rafiki.client import (
     ChatClient,
     NotificationClient,
     LogsClient,
+    FileClient,
     WebSocketListener,
 )
 from rafiki.handlers import ReviewHandler, QuestionHandler, ChatHandler
@@ -72,6 +73,7 @@ class LifecycleController:
         self._chat_client: ChatClient | None = None
         self._notification_client: NotificationClient | None = None
         self._logs_client: LogsClient | None = None
+        self._file_client: FileClient | None = None
         self._ws_listener: WebSocketListener | None = None
 
         # Components
@@ -101,25 +103,56 @@ class LifecycleController:
         return time.monotonic() - self._start_time
 
     def _load_project_context(self) -> None:
-        """Load vision.md and tech-env.md from the project workspace."""
-        project_dir = self.config.resolve_workspace(self.workspace_root)
-        vision_path = project_dir / "vision.md"
-        tech_path = project_dir / "tech-env.md"
+        """Load vision.md and tech-env.md from the seed source directory.
+
+        Reads from ``{repo_root}/rafiki-project/`` (the host-side seed docs),
+        not the project workspace which may not exist yet at INITIALIZING.
+        """
+        seed_dir = self.workspace_root / "rafiki-project"
+        vision_path = seed_dir / "vision.md"
+        tech_path = seed_dir / "tech-env.md"
         if vision_path.exists():
             self._vision_text = vision_path.read_text(encoding="utf-8")
+            logger.info("Loaded vision.md from %s", vision_path)
         if tech_path.exists():
             self._tech_env_text = tech_path.read_text(encoding="utf-8")
+            logger.info("Loaded tech-env.md from %s", tech_path)
+
+    async def _deploy_seed_docs(self, local_workspace: Path) -> None:
+        """Write seed docs to the host workspace and upload via API.
+
+        1. Volume-mount write (immediate, works when co-located).
+        2. API upload (works for remote orchestrators too).
+        """
+        local_workspace.mkdir(parents=True, exist_ok=True)
+        seed_docs = [("vision.md", self._vision_text), ("tech-env.md", self._tech_env_text)]
+
+        # 1. Volume mount write
+        for name, text in seed_docs:
+            if text:
+                (local_workspace / name).write_text(text, encoding="utf-8")
+                logger.info("Wrote %s to %s", name, local_workspace)
+
+        # 2. API upload
+        for name, text in seed_docs:
+            if text:
+                try:
+                    await self._file_client.write(self.config.project_key, name, text)
+                    logger.info("Uploaded %s via API", name)
+                except Exception as exc:
+                    logger.warning("API file upload failed for %s: %s", name, exc)
 
     def _init_clients(self) -> None:
         """Create all API client instances."""
         url = self.config.api_url
         self._health_client = HealthClient(url)
         self._project_client = ProjectClient(url)
-        self._review_client = ReviewClient(url)
-        self._question_client = QuestionClient(url)
+        self._review_client = ReviewClient(url, project_key=self.config.project_key)
+        self._question_client = QuestionClient(url, project_key=self.config.project_key)
         self._chat_client = ChatClient(url)
         self._notification_client = NotificationClient(url)
         self._logs_client = LogsClient(url)
+        self._file_client = FileClient(url)
         self._ws_listener = WebSocketListener()
 
     def _init_handlers(self) -> None:
@@ -154,10 +187,12 @@ class LifecycleController:
             stall_threshold=self.config.stall_threshold,
             logs_client=self._logs_client,
         )
+        project_workspace = self.config.resolve_workspace(self.workspace_root)
         self._verifier = Verifier(
             workspace_root=self.workspace_root,
             project_key=self.config.project_key,
             issue_filer=self._issue_filer,
+            project_dir=project_workspace,
         )
 
     def _all_clients(self) -> list:
@@ -172,6 +207,7 @@ class LifecycleController:
                 self._chat_client,
                 self._notification_client,
                 self._logs_client,
+                self._file_client,
             ]
             if c is not None
         ]
@@ -235,6 +271,9 @@ class LifecycleController:
                 self._current_state.value,
                 f"Created project {self.config.project_key}",
             )
+
+            # Deploy seed docs to workspace (volume mount + API)
+            await self._deploy_seed_docs(local_workspace)
 
             # Chat: initial status check
             self._set_state(LifecycleState.CHATTING)
@@ -389,17 +428,15 @@ class LifecycleController:
         finally:
             # ── CLEANING UP ──
             self._set_state(LifecycleState.CLEANING_UP)
+            project_ws = self.config.resolve_workspace(self.workspace_root)
             cleanup_steps = await run_cleanup(
                 project_key=self.config.project_key,
                 project_client=self._project_client,
                 ws_listener=self._ws_listener,
                 http_clients=self._all_clients(),
                 workspace_root=self.workspace_root,
-                generated_source_dir=self.workspace_root
-                / self.config.project_key,
-                project_workspace_dir=self.config.resolve_workspace(
-                    self.workspace_root
-                ),
+                generated_source_dir=project_ws,
+                project_workspace_dir=project_ws,
                 artifact_paths=self.state.artifact_paths_seen,
                 run_id=self.run_id,
                 skip_cleanup=self.config.skip_cleanup,

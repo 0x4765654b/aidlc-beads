@@ -1,7 +1,8 @@
-# Beads database (SQLite) -- auto-managed, not tracked in git
-# The JSONL export (.beads/issues.jsonl) IS tracked for portability
-.beads/
-!.beads/issues.jsonl
+# Beads: .beads/.gitignore handles ignoring SQLite DBs, lock files, etc.
+# Portable files (issues.jsonl, config.yaml, metadata.json) are tracked.
+.beads/*.tmp.*
+.beads/.migration-hint-ts
+
 
 # Gorilla Troop registry (auto-managed by orchestrator)
 .gorilla-troop/

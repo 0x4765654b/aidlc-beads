@@ -89,6 +89,20 @@ class TestRunBd:
         with pytest.raises(ValueError, match="Failed to parse"):
             _run_bd("show", "gt-1", json_output=True)
 
+    @patch("subprocess.run")
+    def test_run_with_workspace(self, mock_run):
+        mock_run.return_value = _mock_run("ok")
+        _run_bd("ready", workspace="/workspace/sci-calc")
+        kwargs = mock_run.call_args[1]
+        assert kwargs["cwd"] == "/workspace/sci-calc"
+
+    @patch("subprocess.run")
+    def test_run_without_workspace(self, mock_run):
+        mock_run.return_value = _mock_run("ok")
+        _run_bd("ready")
+        kwargs = mock_run.call_args[1]
+        assert kwargs["cwd"] is None
+
 
 # ---------------------------------------------------------------------------
 # BeadsIssue model tests
@@ -124,7 +138,14 @@ class TestShowIssue:
         issue = show_issue("gt-5")
         assert issue.id == "gt-5"
         assert issue.title == "Requirements Analysis"
-        mock_bd.assert_called_once_with("show", "gt-5", json_output=True)
+        mock_bd.assert_called_once_with("show", "gt-5", json_output=True, workspace=None)
+
+    @patch("orchestrator.lib.beads.client._run_bd")
+    def test_show_with_workspace(self, mock_bd):
+        mock_bd.return_value = SAMPLE_ISSUE_JSON
+        issue = show_issue("gt-5", workspace="/workspace/sci-calc")
+        assert issue.id == "gt-5"
+        mock_bd.assert_called_once_with("show", "gt-5", json_output=True, workspace="/workspace/sci-calc")
 
 
 class TestCreateIssue:

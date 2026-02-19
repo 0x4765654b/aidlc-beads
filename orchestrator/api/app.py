@@ -73,20 +73,6 @@ def create_app(
                 registry = app.state.registry
                 if registry.get_project(cfg.default_project_key) is None:
                     workspace = Path(cfg.default_project_path)
-                    if not workspace.is_dir():
-                        from orchestrator.engine.workspace_init import initialize_workspace
-                        try:
-                            initialize_workspace(workspace, cfg.default_project_key)
-                            logger.info(
-                                "[INIT] Created and initialized default workspace: %s",
-                                workspace,
-                            )
-                        except Exception as e:
-                            logger.warning(
-                                "Could not create default workspace at %s: %s",
-                                cfg.default_project_path,
-                                e,
-                            )
                     if workspace.is_dir():
                         registry.create_project(
                             key=cfg.default_project_key,
@@ -96,6 +82,11 @@ def create_app(
                         logger.info(
                             "Auto-registered default project: %s at %s",
                             cfg.default_project_key,
+                            cfg.default_project_path,
+                        )
+                    else:
+                        logger.warning(
+                            "Default project workspace does not exist, skipping auto-register: %s",
                             cfg.default_project_path,
                         )
                 else:
@@ -154,6 +145,7 @@ def create_app(
     from orchestrator.api.routes.notifications import router as notifications_router
     from orchestrator.api.routes.questions import router as questions_router
     from orchestrator.api.routes.logs import router as logs_router
+    from orchestrator.api.routes.files import router as files_router
     from orchestrator.api.routes.ws import router as ws_router
 
     app.include_router(health_router)
@@ -163,6 +155,7 @@ def create_app(
     app.include_router(notifications_router)
     app.include_router(questions_router)
     app.include_router(logs_router)
+    app.include_router(files_router)
     app.include_router(ws_router)
 
     return app

@@ -109,10 +109,11 @@ class ProjectMinder(BaseAgent):
             list_issues,
         )
         logger.info("[INIT] Beads client imported successfully")
+        ws = self._workspace_root  # per-project Beads workspace
 
         # Guard: skip if the project already has OPEN inception issues
         try:
-            existing = list_issues(label="phase:inception", status="open")
+            existing = list_issues(workspace=ws, label="phase:inception", status="open")
             project_issues = [
                 i for i in existing
                 if f"project:{self._project_key}" in i.labels
@@ -139,6 +140,7 @@ class ProjectMinder(BaseAgent):
                 description="Planning and architecture. Determines WHAT to build and WHY.",
                 labels=f"phase:inception,{project_label}",
                 acceptance="All inception stages completed or skipped with explicit user approval.",
+                workspace=ws,
             )
             create_issue(  # Construction epic — stages added during Workflow Planning
                 "CONSTRUCTION PHASE",
@@ -147,6 +149,7 @@ class ProjectMinder(BaseAgent):
                 description="Design, implementation, build and test. Determines HOW to build it.",
                 labels=f"phase:construction,{project_label}",
                 acceptance="All units designed, implemented, built, and tested.",
+                workspace=ws,
             )
             create_issue(
                 "OPERATIONS PHASE",
@@ -154,6 +157,7 @@ class ProjectMinder(BaseAgent):
                 priority=3,
                 description="Deployment and monitoring. Placeholder for future workflows.",
                 labels=f"phase:operations,{project_label}",
+                workspace=ws,
             )
         except Exception as e:
             logger.error("[INIT] FAILED to create phase epics for %s: %s", self._project_key, e, exc_info=True)
@@ -170,8 +174,9 @@ class ProjectMinder(BaseAgent):
                 description="Analyze workspace state, detect project type (greenfield/brownfield).",
                 labels=f"phase:inception,stage:workspace-detection,always,{project_label}",
                 acceptance="Workspace state recorded. Project type determined.",
+                workspace=ws,
             )
-            add_dependency(ws_detect.id, inception_epic.id, dep_type="parent")
+            add_dependency(ws_detect.id, inception_epic.id, dep_type="parent", workspace=ws)
 
             # Requirements Analysis
             req_analysis = create_issue(
@@ -181,9 +186,10 @@ class ProjectMinder(BaseAgent):
                 labels=f"phase:inception,stage:requirements-analysis,always,{project_label}",
                 notes="artifact: aidlc-docs/inception/requirements/requirements.md",
                 acceptance="Requirements document generated. All questions answered. Human review approved.",
+                workspace=ws,
             )
-            add_dependency(req_analysis.id, inception_epic.id, dep_type="parent")
-            add_dependency(req_analysis.id, ws_detect.id)
+            add_dependency(req_analysis.id, inception_epic.id, dep_type="parent", workspace=ws)
+            add_dependency(req_analysis.id, ws_detect.id, workspace=ws)
 
             # Requirements Review Gate
             req_review = create_issue(
@@ -194,9 +200,10 @@ class ProjectMinder(BaseAgent):
                 notes="artifact: aidlc-docs/inception/requirements/requirements.md",
                 assignee="human",
                 acceptance="Human approved requirements.",
+                workspace=ws,
             )
-            add_dependency(req_review.id, inception_epic.id, dep_type="parent")
-            add_dependency(req_review.id, req_analysis.id)
+            add_dependency(req_review.id, inception_epic.id, dep_type="parent", workspace=ws)
+            add_dependency(req_review.id, req_analysis.id, workspace=ws)
 
             # Workflow Planning
             wf_planning = create_issue(
@@ -206,9 +213,10 @@ class ProjectMinder(BaseAgent):
                 labels=f"phase:inception,stage:workflow-planning,always,{project_label}",
                 notes="artifact: aidlc-docs/inception/plans/execution-plan.md",
                 acceptance="Execution plan generated. Stages marked execute/skip with explicit user approval.",
+                workspace=ws,
             )
-            add_dependency(wf_planning.id, inception_epic.id, dep_type="parent")
-            add_dependency(wf_planning.id, req_review.id)
+            add_dependency(wf_planning.id, inception_epic.id, dep_type="parent", workspace=ws)
+            add_dependency(wf_planning.id, req_review.id, workspace=ws)
 
             # Workflow Planning Review Gate
             wp_review = create_issue(
@@ -219,9 +227,10 @@ class ProjectMinder(BaseAgent):
                 notes="artifact: aidlc-docs/inception/plans/execution-plan.md",
                 assignee="human",
                 acceptance="Human approved execution plan.",
+                workspace=ws,
             )
-            add_dependency(wp_review.id, inception_epic.id, dep_type="parent")
-            add_dependency(wp_review.id, wf_planning.id)
+            add_dependency(wp_review.id, inception_epic.id, dep_type="parent", workspace=ws)
+            add_dependency(wp_review.id, wf_planning.id, workspace=ws)
 
         except Exception as e:
             logger.error("[INIT] FAILED to create always-execute stages for %s: %s", self._project_key, e, exc_info=True)
@@ -250,8 +259,9 @@ class ProjectMinder(BaseAgent):
                     priority=2,
                     description=description,
                     labels=f"phase:inception,stage:{stage_slug},conditional,{project_label}",
+                    workspace=ws,
                 )
-                add_dependency(stage.id, inception_epic.id, dep_type="parent")
+                add_dependency(stage.id, inception_epic.id, dep_type="parent", workspace=ws)
 
                 review = create_issue(
                     f"REVIEW: {title} - Awaiting Approval",
@@ -259,9 +269,10 @@ class ProjectMinder(BaseAgent):
                     description=f"Human reviews {title.lower()} artifacts.",
                     labels=f"phase:inception,type:review-gate,{project_label}",
                     assignee="human",
+                    workspace=ws,
                 )
-                add_dependency(review.id, inception_epic.id, dep_type="parent")
-                add_dependency(review.id, stage.id)
+                add_dependency(review.id, inception_epic.id, dep_type="parent", workspace=ws)
+                add_dependency(review.id, stage.id, workspace=ws)
             except Exception as e:
                 logger.warning("Could not create conditional stage '%s': %s", title, e)
 
@@ -356,6 +367,7 @@ class ProjectMinder(BaseAgent):
         try:
             from orchestrator.lib.beads.client import update_issue
 
+            ws = self._workspace_root
             # Update the stage issue as done
             notes_parts = [f"Completed: {summary}"]
             for artifact in artifacts:
@@ -363,11 +375,12 @@ class ProjectMinder(BaseAgent):
             notes = "\n".join(notes_parts)
 
             if status == "completed":
-                update_issue(issue_id, status="done", append_notes=notes)
+                update_issue(issue_id, workspace=ws, status="done", append_notes=notes)
                 logger.info("Stage %s completed successfully", issue_id)
             elif status == "needs_rework":
                 update_issue(
                     issue_id,
+                    workspace=ws,
                     append_notes=f"NEEDS REWORK: {context.get('rework_reason', '')}",
                 )
                 logger.info("Stage %s needs rework", issue_id)
@@ -419,7 +432,7 @@ class ProjectMinder(BaseAgent):
         try:
             from orchestrator.lib.beads.client import list_issues
 
-            issues = list_issues(label="type:review-gate", status="open")
+            issues = list_issues(workspace=self._workspace_root, label="type:review-gate", status="open")
 
             if not issues:
                 return "No pending review gates."
@@ -437,7 +450,7 @@ class ProjectMinder(BaseAgent):
         """Get ready (unblocked) issues from Beads."""
         try:
             from orchestrator.lib.beads.client import ready
-            return ready()
+            return ready(workspace=self._workspace_root)
         except Exception as e:
             logger.error("Failed to get ready issues: %s", e)
             return []
@@ -447,7 +460,7 @@ class ProjectMinder(BaseAgent):
         try:
             from orchestrator.lib.beads.client import list_issues
 
-            all_issues = list_issues()
+            all_issues = list_issues(workspace=self._workspace_root)
             for issue in all_issues:
                 if issue.issue_type == "epic":
                     continue
@@ -488,7 +501,7 @@ class ProjectMinder(BaseAgent):
             from orchestrator.lib.beads.client import list_issues
 
             # Get all done issues to find potential predecessors
-            done_issues = [i for i in list_issues() if i.status == "done"]
+            done_issues = [i for i in list_issues(workspace=self._workspace_root) if i.status == "done"]
 
             for done_issue in done_issues:
                 if done_issue.notes:
@@ -505,7 +518,7 @@ class ProjectMinder(BaseAgent):
         """Claim a Beads issue (set status to in_progress)."""
         try:
             from orchestrator.lib.beads.client import update_issue
-            update_issue(issue_id, status="in_progress")
+            update_issue(issue_id, workspace=self._workspace_root, status="in_progress")
         except Exception as e:
             logger.warning("Failed to claim issue %s: %s", issue_id, e)
 

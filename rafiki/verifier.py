@@ -41,11 +41,12 @@ class Verifier:
         workspace_root: Path,
         project_key: str,
         issue_filer: IssueFiler,
+        project_dir: Path | None = None,
     ):
         self.workspace_root = workspace_root
         self.project_key = project_key
         self.issue_filer = issue_filer
-        self.project_dir = workspace_root / project_key
+        self.project_dir = project_dir or (workspace_root / project_key)
 
     async def run(self) -> VerificationReport:
         """Run all verification checks."""
@@ -79,7 +80,10 @@ class Verifier:
 
     async def _check_artifacts(self) -> VerificationResult:
         """AIDLC artifacts exist"""
-        aidlc_dir = self.workspace_root / "aidlc-docs"
+        # Look inside the project workspace first, fall back to repo root
+        aidlc_dir = self.project_dir / "aidlc-docs"
+        if not aidlc_dir.exists():
+            aidlc_dir = self.workspace_root / "aidlc-docs"
         if not aidlc_dir.exists():
             await self.issue_filer.file_bug(
                 "AIDLC artifacts directory missing",

@@ -7,7 +7,13 @@ import re
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from orchestrator.api.deps import get_ws_manager, get_beads_client, get_mail_client
+from orchestrator.api.deps import (
+    get_ws_manager,
+    get_beads_client,
+    get_mail_client,
+    get_registry,
+    resolve_project_workspace,
+)
 from orchestrator.api.models import (
     QuestionResponse,
     QuestionDetailResponse,
@@ -15,6 +21,7 @@ from orchestrator.api.models import (
     AnswerResultResponse,
 )
 from orchestrator.api.websocket import ConnectionManager
+from orchestrator.engine.project_registry import ProjectRegistry
 
 logger = logging.getLogger("api.questions")
 
@@ -55,6 +62,7 @@ def _extract_stage(title: str) -> str | None:
 @router.get("/", response_model=list[QuestionResponse])
 async def list_questions(
     project_key: str | None = None,
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> list[QuestionResponse]:
     """List pending Q&A questions.
 
@@ -67,8 +75,10 @@ async def list_questions(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    ws = resolve_project_workspace(registry, project_key)
+
     try:
-        issues = beads.list_issues(label="type:qa", status="open")
+        issues = beads.list_issues(workspace=ws, label="type:qa", status="open")
     except Exception as e:
         logger.error("Failed to list questions: %s", e)
         raise HTTPException(status_code=502, detail=f"Beads query failed: {e}")
@@ -94,6 +104,8 @@ async def list_questions(
 @router.get("/{issue_id}", response_model=QuestionDetailResponse)
 async def get_question_detail(
     issue_id: str,
+    project_key: str | None = None,
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> QuestionDetailResponse:
     """Get full question details with parsed options.
 
@@ -107,8 +119,10 @@ async def get_question_detail(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    ws = resolve_project_workspace(registry, project_key)
+
     try:
-        issue = beads.show_issue(issue_id)
+        issue = beads.show_issue(issue_id, workspace=ws)
     except Exception as e:
         logger.error("Failed to show issue %s: %s", issue_id, e)
         raise HTTPException(status_code=404, detail=f"Issue '{issue_id}' not found: {e}")
@@ -135,7 +149,9 @@ async def get_question_detail(
 async def answer_question(
     issue_id: str,
     body: AnswerRequest,
+    project_key: str | None = None,
     ws: ConnectionManager = Depends(get_ws_manager),
+    registry: ProjectRegistry = Depends(get_registry),
 ) -> AnswerResultResponse:
     """Answer a pending question.
 
@@ -151,10 +167,12 @@ async def answer_question(
             detail="Beads client unavailable. Ensure bd CLI is on PATH.",
         )
 
+    proj_ws = resolve_project_workspace(registry, project_key)
+
     # Add the answer as notes and close the issue
     try:
-        beads.update_issue(issue_id, append_notes=f"ANSWER: {body.answer}")
-        beads.close_issue(issue_id, reason=f"Answered: {body.answer}")
+        beads.update_issue(issue_id, workspace=proj_ws, append_notes=f"ANSWER: {body.answer}")
+        beads.close_issue(issue_id, reason=f"Answered: {body.answer}", workspace=proj_ws)
     except Exception as e:
         logger.error("Failed to answer question %s: %s", issue_id, e)
         raise HTTPException(status_code=502, detail=f"Beads update failed: {e}")
@@ -162,7 +180,7 @@ async def answer_question(
     # Check for newly unblocked stages
     unblocked_stages: list[str] = []
     try:
-        ready_issues = beads.ready()
+        ready_issues = beads.ready(workspace=proj_ws)
         unblocked_stages = [issue.id for issue in ready_issues]
     except Exception as e:
         logger.warning("Could not check for unblocked stages: %s", e)
